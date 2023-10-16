@@ -9,7 +9,7 @@ export default function ToFieldset(props) {
   };
 
   return (
-    <fieldset className="swap-to">
+    <fieldset className="swap-to offset-background">
       <form-field class="dropdown">
         <label className="whisper-voice" htmlFor="tokenTo">
           To

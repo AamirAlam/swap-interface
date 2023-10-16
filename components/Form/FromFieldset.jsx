@@ -12,8 +12,8 @@ export default function FromFieldset(props) {
   };
 
   return (
-    <fieldset>
-      <form-field class="dropdown">
+    <fieldset className="offset-background">
+      <form-field class="dropdown ">
         <label className="whisper-voice" htmlFor="tokenFrom">
           From
         </label>
