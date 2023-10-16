@@ -12,38 +12,45 @@ a {
   transition: 0.2s;
 }
 
-/*  */
-
+/* CSS */
 .button {
   position: relative;
 
-  padding: 0.5em 2em;
+  padding: 1em 2em;
+  padding: 0.75rem 1.65rem;
+
   text-align: center;
-  border: var(--border);
+
+  background: var(--gradient-color);
   border-radius: var(--corners);
+
+  transform: rotate(-2deg);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  transition: 0.2s ease-in-out;
 }
 
 .button::before {
   content: "";
   position: absolute;
-  bottom: -0.5em;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 50%;
-  height: 1px;
-  background-color: var(--gray);
-  transition: 0.2s;
+  border: var(--line-width) solid var(--ink);
+  bottom: 4px;
+  left: 4px;
+  width: calc(100% - 1px);
+  height: calc(100% - 1px);
+  transition: 0.2s ease-in-out;
+  border-radius: var(--corners);
 }
 
 .button:is(:hover, :focus-visible) {
-  outline-color: var(--highlight);
-  /* border-color: var(--highlight); */
-  /* box-shadow: var(--shadow-lines); */
+  outline: 0;
 }
 
 .button:is(:hover, :focus-visible)::before {
   width: 100%;
-  background: var(--gradient-color);
+  bottom: 2px;
+  left: 2px;
 }
 
 .button:active {
@@ -75,11 +82,19 @@ a {
   place-items: center;
   border-radius: 50%;
   aspect-ratio: 1/1;
-  padding: 0;
-  /* background: none; */
-  max-width: 2rem;
+  padding: 0.5em;
+  background: none;
 }
 
+.icon > * {
+  object-fit: contain;
+  object-position: center;
+}
+
+form > button.icon {
+  justify-self: center;
+  max-width: 4rem;
+}
 /*  */
 
 div.actions,

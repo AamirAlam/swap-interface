@@ -1,4 +1,4 @@
-body {
+#__next {
   display: grid;
   grid-auto-rows: auto 1fr auto; /* main fills up available space + push the footer down */
   min-height: 100vh; /* be at least a full viewport height */
@@ -22,7 +22,7 @@ inner-column.wide {
 }
 
 inner-column.narrow {
-  max-width: 800px; /* could be a variable in settings */
+  max-width: 700px; /* could be a variable in settings */
 }
 
 inner-column.full {

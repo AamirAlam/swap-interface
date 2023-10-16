@@ -36,6 +36,34 @@
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  padding: 0.25em 0;
+  /* padding: 0.25em 0; */
+  font-weight: var(--weight-heavy);
   max-width: max-content;
+}
+
+.offset-background {
+  position: relative;
+  background: var(--gradient-color);
+  border-radius: var(--corners);
+
+  /* transform: rotate(-2deg); */
+}
+
+.offset-background::before {
+  content: "";
+  position: absolute;
+  border: var(--line-width) solid var(--ink);
+  bottom: 10px;
+  left: 10px;
+  width: calc(100% - 1px);
+  height: calc(100% - 1px);
+  transition: 0.2s ease-in-out;
+  border-radius: var(--corners);
+  pointer-events: none;
+}
+
+.offset-background:is(:hover, :focus-visible, :focus-within)::before {
+  width: 100%;
+  bottom: 2px;
+  left: 2px;
 }

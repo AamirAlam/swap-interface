@@ -24,7 +24,7 @@ html {
 
   /* Borders */
   --line-width: 1px;
-  --corners: 1rem;
+  --corners: 0.25rem;
 
   --border: var(--line-width) solid var(--gray);
   --border-dark: var(--line-width) solid var(--gray-dark);
@@ -33,8 +33,19 @@ html {
   --border-highlight: var(--line-width) solid var(--highlight);
 
   /* Shadows */
-  --shadow: var(--highlight) 0px 0px 2em -0.625em;
-  --shadow-selected: 2px 2px 1px var(--highlight);
+  --shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+  --shadow-right: rgba(240, 46, 170, 0.4) 5px 5px,
+    rgba(240, 46, 170, 0.3) 10px 10px, rgba(240, 46, 170, 0.2) 15px 15px,
+    rgba(240, 46, 170, 0.1) 20px 20px, rgba(240, 46, 170, 0.05) 25px 25px;
+
+  --shadow-left: rgba(240, 46, 170, 0.4) -5px 5px,
+    rgba(240, 46, 170, 0.3) -10px 10px, rgba(240, 46, 170, 0.2) -15px 15px,
+    rgba(240, 46, 170, 0.1) -20px 20px, rgba(240, 46, 170, 0.05) -25px 25px;
+
+  --shadow-lines: var(--paper) 10px -10px 0px -3px, var(--color) 10px -10px,
+    var(--paper) 20px -20px 0px -3px, var(--color-light) 20px -20px,
+    var(--paper) 30px -30px 0px -3px, var(--color-lighter) 30px -30px,
+    var(--paper) 40px -40px 0px -3px, var(--color-lightest) 40px -40px;
 }
 
 /*@media (prefers-color-scheme: light) {

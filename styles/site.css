@@ -29,7 +29,11 @@ body {
   color: var(--ink);
 }
 
-[data-rk],
-#__next {
+[data-rk] {
   display: contents;
+}
+
+main {
+  display: grid;
+  align-content: center;
 }
