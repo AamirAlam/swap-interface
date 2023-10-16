@@ -89,8 +89,8 @@ const Swap = () => {
 		availableTokens={availableTokens}
 		/>
 
-      <button className="button icon" onClick={handleSwap}>
-        🔃
+      <button className=" icon" onClick={handleSwap}>
+			<img src="/images/swap.svg" alt="" />
       </button>
 
       <ToFieldset 
@@ -102,7 +102,7 @@ const Swap = () => {
 		/>
 
       <div className="actions">
-        <button className="button" type="submit">
+        <button className="button firm-voice" type="submit">
           Swap
         </button>
       </div>
