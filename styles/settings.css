@@ -1,0 +1,48 @@
+@import "colors.css";
+
+html {
+  /* Spacing */
+  /* @link https://utopia.fyi/space/calculator?c=320,16,1.2,1600,18,1.5,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
+
+  --space-3xs: clamp(0.25rem, 0.23rem + 0.08vw, 0.31rem);
+  --space-2xs: clamp(0.5rem, 0.48rem + 0.08vw, 0.56rem);
+  --space-xs: clamp(0.75rem, 0.72rem + 0.16vw, 0.88rem);
+  --space-s: clamp(1rem, 0.97rem + 0.16vw, 1.13rem);
+  --space-m: clamp(1.5rem, 1.45rem + 0.23vw, 1.69rem);
+  --space-l: clamp(2rem, 1.94rem + 0.31vw, 2.25rem);
+  --space-xl: clamp(3rem, 2.91rem + 0.47vw, 3.38rem);
+  --space-2xl: clamp(4rem, 3.88rem + 0.63vw, 4.5rem);
+  --space-3xl: clamp(6rem, 5.81rem + 0.94vw, 6.75rem);
+
+  /* Backgrounds */
+
+  --checkers: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='6' viewBox='0 0 8 8'%3E%3Cg fill='%23000000' fill-opacity='0.1'%3E%3Cpath fill-rule='evenodd' d='M0 0h4v4H0V0zm4 4h4v4H4V4z'/%3E%3C/g%3E%3C/svg%3E");
+
+  --diagnol: url("data:image/svg+xml,%3Csvg width='4' height='4' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23000000' fill-opacity='0.2' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 6V5zM6 5v1H5z'/%3E%3C/g%3E%3C/svg%3E");
+
+  --points: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23000000' fill-opacity='0.2' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
+
+  /* Borders */
+  --line-width: 1px;
+  --corners: 1rem;
+
+  --border: var(--line-width) solid var(--gray);
+  --border-dark: var(--line-width) solid var(--gray-dark);
+  --border-light: var(--line-width) solid var(--ink);
+  --border-color: var(--line-width) solid var(--color);
+  --border-highlight: var(--line-width) solid var(--highlight);
+
+  /* Shadows */
+  --shadow: var(--highlight) 0px 0px 2em -0.625em;
+  --shadow-selected: 2px 2px 1px var(--highlight);
+}
+
+/*@media (prefers-color-scheme: light) {
+	html {
+		--paper: var(--white);
+	  --ink: var(--black);
+	  --color-darker: var(--color-lighter);
+	  --color-dark: var(--color-light); 
+	}
+ }
+ */

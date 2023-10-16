@@ -1,0 +1,57 @@
+form {
+  display: grid;
+  gap: var(--space-l);
+}
+
+fieldset {
+  display: grid;
+  gap: var(--space-m);
+
+  border: var(--line-width) solid var(--highlight);
+
+  padding: var(--space-s);
+}
+
+fieldset.swap-to form-field.number {
+  pointer-events: none;
+}
+
+form-field {
+  display: grid;
+  gap: var(--space-s);
+}
+
+form-field.dropdown {
+  display: grid;
+  grid-template-columns: 0.1fr 1fr;
+  justify-items: start;
+  align-items: center;
+}
+
+form-field.number {
+  background: var(--color-lightest);
+  border-radius: var(--corners);
+  padding: var(--space-xs);
+}
+
+form-field.number p.in-dollars {
+  color: var(--gray);
+}
+
+input {
+  border: none;
+  background: var(--color-lightest);
+}
+
+select {
+  padding: var(--space-2xs);
+  border: none;
+  background: var(--highlight-lightest);
+  border-radius: var(--corners);
+}
+
+option {
+  padding: var(--space-2xs);
+  border: none;
+  background: var(--highlight-lightest);
+}

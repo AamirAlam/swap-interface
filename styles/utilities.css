@@ -1,0 +1,41 @@
+.hide {
+  display: none;
+}
+
+/* backgrounds */
+.texture {
+  background-image: var(--texture);
+}
+
+.checkers {
+  background-image: var(--checkers);
+}
+
+.diagnol {
+  background-image: var(--diagnol);
+}
+
+.points {
+  background-image: var(--points);
+}
+
+/* borders */
+.border {
+  border: var(--border);
+}
+
+/* Shadows  */
+.shadow {
+  box-shadow: var(--shadow);
+}
+
+/* gradient texts */
+
+.gradient-text {
+  background: var(--gradient-color);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  padding: 0.25em 0;
+  max-width: max-content;
+}

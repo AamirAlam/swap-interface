@@ -1,0 +1,131 @@
+/* buttons and icons and smaller reusable bits here */
+
+@import "forms.css";
+
+/* buttom a */
+
+/* button */
+
+button,
+a {
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+/*  */
+
+.button {
+  position: relative;
+
+  padding: 0.5em 2em;
+  text-align: center;
+  border: var(--border);
+  border-radius: var(--corners);
+}
+
+.button::before {
+  content: "";
+  position: absolute;
+  bottom: -0.5em;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50%;
+  height: 1px;
+  background-color: var(--gray);
+  transition: 0.2s;
+}
+
+.button:is(:hover, :focus-visible) {
+  outline-color: var(--highlight);
+  /* border-color: var(--highlight); */
+  /* box-shadow: var(--shadow-lines); */
+}
+
+.button:is(:hover, :focus-visible)::before {
+  width: 100%;
+  background: var(--gradient-color);
+}
+
+.button:active {
+  outline: unset;
+}
+
+/*  */
+.button.outline {
+  background: var(--paper);
+  color: var(--color);
+  border: var(--line-width-thin) solid var(--color);
+  padding: 0.5em 1em;
+}
+
+.button.outline:is(:hover, :focus-visible) {
+  border-color: var(--highlight);
+  color: var(--highlight);
+}
+
+.button.outline:active {
+  background: var(--highlight);
+  color: var(--color);
+}
+
+/* button icon */
+
+.icon {
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  aspect-ratio: 1/1;
+  padding: 0;
+  /* background: none; */
+  max-width: 2rem;
+}
+
+/*  */
+
+div.actions,
+.wallet-wrapper {
+  display: flex;
+  gap: var(--space-s);
+}
+
+.wallet-wrapper {
+  justify-content: end;
+}
+
+.wallet-wrapper button.icon {
+  display: flex;
+  align-items: center;
+}
+
+.wallet-wrapper picture.wallet-token-icon {
+  /* max-width: 2rem; */
+  aspect-ratio: 1/1;
+}
+
+/* scrollbar */
+* {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: var(--line-width); /* Firefox */
+}
+/* This part is for the scrollbar track / */
+*::-webkit-scrollbar {
+  width: var(--line-width);
+  height: var(--line-width);
+}
+
+/* / This part is for the track (the part that the thumb slides across) / */
+::-webkit-scrollbar-track {
+  box-shadow: var(--shadow);
+  border-radius: var(--corners);
+}
+
+/* / This part is for the thumb (the part you drag) / */
+::-webkit-scrollbar-thumb {
+  background: var(--gradient-color);
+  border-radius: var(--corners);
+}
+
+/* / This part is for the thumb when it's being hovered over  */
+::-webkit-scrollbar-thumb:hover {
+  filter: brightness(1.2);
+}
