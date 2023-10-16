@@ -1,6 +1,6 @@
 html {
   /* Black and white */
-  --hue: 206;
+  --hue: 255;
   --black: hsla(0, 0%, 1%, 1);
   --white: hsla(var(--hue), 0%, 94%, 1);
 
@@ -16,7 +16,7 @@ html {
 
   /* #todo replacce the light and dark with color-mix eventually */
 
-  --color: hsla(var(--hue), 66%, 75%, 1);
+  --color: hsla(var(--hue), 65%, 70%, 1);
   --color-light: hsla(var(--hue), 65%, 80%, 1);
   --color-lighter: hsla(var(--hue), 66%, 85%, 1);
   --color-lightest: hsla(var(--hue), 64%, 95%, 1);
@@ -24,21 +24,21 @@ html {
   --color-darker: hsla(var(--hue), 47%, 27%, 1);
   --color-darkest: hsla(var(--hue), 40%, 5%, 1);
 
-  --highlight: hsla(calc(var(--hue) - 56), 90%, 60%, 1);
-  --highlight-light: hsla(calc(var(--hue) - 56), 90%, 70%, 1);
-  --highlight-lighter: hsla(calc(var(--hue) - 56), 90%, 80%, 1);
-  --highlight-lightest: hsla(calc(var(--hue) - 56), 90%, 90%, 1);
-  --highlight-dark: hsla(calc(var(--hue) - 56), 90%, 50%, 1);
-  --highlight-darker: hsla(calc(var(--hue) - 56), 90%, 40%, 1);
-  --highlight-darkest: hsla(calc(var(--hue) - 56), 90%, 30%, 1);
+  --highlight: hsla(calc(var(--hue) + 70), 65%, 60%, 1);
+  --highlight-light: hsla(calc(var(--hue) + 70), 90%, 70%, 1);
+  --highlight-lighter: hsla(calc(var(--hue) + 70), 90%, 80%, 1);
+  --highlight-lightest: hsla(calc(var(--hue) + 70), 90%, 90%, 1);
+  --highlight-dark: hsla(calc(var(--hue) + 70), 90%, 50%, 1);
+  --highlight-darker: hsla(calc(var(--hue) + 70), 90%, 40%, 1);
+  --highlight-darkest: hsla(calc(var(--hue) + 70), 90%, 30%, 1);
 
-  --tertiary-color: hsla(calc(66 + var(--hue)), 77%, 44%, 1);
-  --tertiary-color-light: hsla(calc(66 + var(--hue)), 77%, 54%, 1);
-  --tertiary-color-lighter: hsla(calc(66 + var(--hue)), 77%, 64%, 1);
-  --tertiary-color-lightest: hsla(calc(66 + var(--hue)), 77%, 74%, 1);
-  --tertiary-color-dark: hsla(calc(66 + var(--hue)), 77%, 34%, 1);
-  --tertiary-color-darker: hsla(calc(66 + var(--hue)), 77%, 24%, 1);
-  --tertiary-color-darkest: hsla(calc(66 + var(--hue)), 77%, 14%, 1);
+  --tertiary-color: hsla(calc(var(--hue) - 120), 77%, 44%, 1);
+  --tertiary-color-light: hsla(calc(var(--hue) - 120), 77%, 54%, 1);
+  --tertiary-color-lighter: hsla(calc(var(--hue) - 120), 77%, 64%, 1);
+  --tertiary-color-lightest: hsla(calc(var(--hue) - 120), 77%, 74%, 1);
+  --tertiary-color-dark: hsla(calc(var(--hue) - 120), 77%, 34%, 1);
+  --tertiary-color-darker: hsla(calc(var(--hue) - 120), 77%, 24%, 1);
+  --tertiary-color-darkest: hsla(calc(var(--hue) - 120), 77%, 14%, 1);
 
   --success: hsla(122, 85%, 65%, 1);
   --warning: hsla(44, 85%, 65%, 1);
@@ -64,8 +64,14 @@ html {
 
   --gradient-color: linear-gradient(
     var(--gradient-direction),
-    var(--color) 35%,
-    var(--highlight)
+    var(--color),
+    var(--highlight-lighter)
+  );
+
+  --gradient-highlight: linear-gradient(
+    var(--gradient-direction),
+    var(--highlight),
+    var(--tertiary-color)
   );
 }
 
