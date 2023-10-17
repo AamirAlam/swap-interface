@@ -60,6 +60,10 @@ input {
   border-bottom: var(--border);
 }
 
+label {
+  color: var(--black);
+}
+
 select {
   padding: var(--space-2xs);
   border: none;

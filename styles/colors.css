@@ -22,7 +22,7 @@ html {
   --color-lightest: hsla(var(--hue), 64%, 95%, 1);
   --color-dark: hsla(var(--hue), 51%, 46%, 1);
   --color-darker: hsla(var(--hue), 47%, 27%, 1);
-  --color-darkest: hsla(var(--hue), 40%, 5%, 1);
+  --color-darkest: hsla(var(--hue), 40%, 15%, 1);
 
   --highlight: hsla(calc(var(--hue) + 70), 65%, 60%, 1);
   --highlight-light: hsla(calc(var(--hue) + 70), 90%, 70%, 1);
@@ -77,7 +77,13 @@ html {
 
 @media (prefers-color-scheme: dark) {
   html {
-    --paper: var(--black);
+    --paper: linear-gradient(
+      var(--gradient-direction),
+      var(--highlight-darkest),
+      var(--black),
+      var(--color-darkest),
+      var(--gray-darker)
+    );
     --ink: var(--white);
   }
 }

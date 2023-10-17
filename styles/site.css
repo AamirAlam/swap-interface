@@ -25,7 +25,7 @@
 
 /* then other contextual styles */
 body {
-  background-color: var(--paper);
+  background: var(--paper);
   color: var(--ink);
 }
 

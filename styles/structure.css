@@ -14,7 +14,7 @@ inner-column {
   max-width: 1100px; /* could be a variable in settings */
   margin-right: auto;
   margin-left: auto;
-  padding: 30px 15px; /* a loose default */
+  padding: var(--space-s) var(--space-2xs); /* a loose default */
 }
 
 inner-column.wide {
