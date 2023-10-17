@@ -1,0 +1,74 @@
+form {
+  display: grid;
+  gap: var(--space-s);
+  /* box-shadow: var(--shadow-right); */
+  padding: var(--space-xl);
+  border-radius: var(--corners);
+}
+
+fieldset {
+  display: grid;
+  gap: var(--space-m);
+
+  padding: var(--space-s);
+
+  border-radius: var(--corners);
+  /* box-shadow: var(--shadow-left); */
+}
+
+fieldset.swap-to {
+  /* box-shadow: var(--shadow-right); */
+  transform: rotate(1deg);
+}
+
+fieldset.swap-to form-field.number {
+  pointer-events: none;
+}
+
+/*  */
+
+form-field {
+  display: grid;
+  gap: var(--space-s);
+}
+
+form-field.dropdown {
+  display: grid;
+  grid-template-columns: 0.1fr 1fr;
+  justify-items: start;
+  align-items: center;
+}
+
+/*  */
+
+form-field.number {
+  background: var(--color-lightest);
+  border-radius: var(--corners);
+  padding: var(--space-xs);
+}
+
+form-field.number p.in-dollars {
+  color: var(--gray);
+}
+
+/*  */
+
+input {
+  border: none;
+  background: var(--color-lightest);
+  padding: var(--space-s) var(--space-3xs);
+  border-bottom: var(--border);
+}
+
+select {
+  padding: var(--space-2xs);
+  border: none;
+  background: var(--color-lighter);
+  border-radius: var(--corners);
+}
+
+option {
+  padding: var(--space-2xs);
+  border: none;
+  background: var(--highlight-lightest);
+}
