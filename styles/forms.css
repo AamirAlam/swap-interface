@@ -2,7 +2,7 @@ form {
   display: grid;
   gap: var(--space-s);
   /* box-shadow: var(--shadow-right); */
-  padding: var(--space-xl);
+  padding: var(--space-m);
   border-radius: var(--corners);
 }
 

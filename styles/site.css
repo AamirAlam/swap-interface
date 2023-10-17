@@ -36,4 +36,5 @@ body {
 main {
   display: grid;
   align-content: center;
+  padding-top: var(--space-s);
 }
