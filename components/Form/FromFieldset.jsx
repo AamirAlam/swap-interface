@@ -18,9 +18,9 @@ export default function FromFieldset(props) {
           From
         </label>
         <select name="swap-from" id="tokenFrom" onChange={handleTokenChange}>
-          {props.availableTokens.map((token) => (
-            <option key={token.name} value={token.chainId}>
-              {token.name}
+          {props.availableTokens.map((token, index) => (
+            <option selected={token.symbol === props?.tokenTo?.symbol}   key={token.symbol} value={index}>
+              {token.symbol}
             </option>
           ))}
         </select>
@@ -28,24 +28,24 @@ export default function FromFieldset(props) {
 
       <form-field class="number">
         <label className="solid-voice" htmlFor="amountFrom">
-          You pay
+          {/* You pay */}
         </label>
 
         <input
           id="amountFrom"
           type="number"
           value={props.amountFrom}
-          step="0.01"
-          min="0.01"
+          // step="0.01"
+          // min="0.01"
           onChange={handleAmountChange}
           className="notice-voice"
         />
-        <p className="in-dollars">
+        {/* <p className="in-dollars">
           ${" "}
           {props.tokenFrom.rate
             ? props.amountFrom * props.tokenFrom.rate
             : "Select a token"}
-        </p>
+        </p> */}
       </form-field>
     </fieldset>
   );

@@ -1,110 +1,206 @@
 // src/components/Swap.js
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import FromFieldset from "./FromFieldset";
 import ToFieldset from "./ToFieldset";
+import { SWAP_TYPE } from "../../hooks/constants";
+import { useContractCalls } from "../../hooks/useContractCalls";
+import { useSwapCallbacks } from "../../hooks/useSwapCallbacks";
+import { fromWei, toWei } from "../../hooks/helpers";
+import BigNumber from "bignumber.js";
+import { useApproveCallbacks } from "../../hooks/useApproveCallbacks";
+
+const availableTokens = [
+  {
+    id: 1,
+    name: "Ethereum",
+    symbol: "ETH",
+    address: "0xB4FBF271143F4FBf7B91A5ded31805e42b2208d6",
+    decimals: 18,
+    chainId: 5,
+    icon: "ethereum.svg",
+  },
+  {
+    id: 2,
+    name: "USD coin",
+    symbol: "USDC",
+    chainId: 5,
+    address: "0xBD4B78B3968922e8A53F1d845eB3a128Adc2aA12",
+    decimals: 6,
+    icon: "usdc.svg",
+  },
+  {
+    id: 3,
+    name: "Dai",
+    symbol: "DAI",
+    address: "0x30bDf1538e525f7f2c5b38F437E94DcE6b1E7bc5",
+    decimals: 18,
+    chainId: 5,
+    icon: "dai.svg",
+  },
+];
 
 const Swap = () => {
-  const [tokenFrom, setTokenFrom] = useState("1");
-  const [tokenTo, setTokenTo] = useState("2");
+  const [tokenFrom, setTokenFrom] = useState(availableTokens[0]);
+  const [tokenTo, setTokenTo] = useState(availableTokens[1]);
   const [amountToSwap, setAmountToSwap] = useState("");
   const [amountToReceive, setAmountToReceive] = useState("");
+  const [swapType, setSwapType] = useState(SWAP_TYPE.FROM);
 
-  const availableTokens = [
-	{
-	  name: "ETH",
-	  chainId: 1,
-	  icon: "ethereum.svg",
-	  rate: 1560.56,
-	},
-	{
-		name: "DAI",
-		chainId: 2,
-		icon: "usdc.svg",
-		rate: 1.0,
-	 },
-	{
-	  name: "USDC",
-	  chainId: 3,
-	  icon: "usdc.svg",
-	  rate: 1.0,
-	},
-	{
-	  name: "Matic",
-	  chainId: 4,
-	  icon: "matic.svg",
-	  rate: 0.5169,
-	},
- ];
-  
+  const path = useMemo(() => {
+    return swapType === SWAP_TYPE.FROM
+      ? [tokenFrom.address, tokenTo.address]
+      : [tokenTo.address, tokenFrom.address];
+  }, [tokenFrom, tokenTo, swapType]);
+
+  const {
+    allowance,
+    tradeQuote: {
+      deviation,
+      dexPrice,
+      oraclePrice,
+      token0Amount: token0Quote,
+      token1Amount: token1Quote,
+    },
+  } = useContractCalls(
+    tokenFrom,
+    tokenTo,
+    amountToSwap,
+    amountToReceive,
+    path,
+    swapType
+  );
+
+  const { swapTokens, loading, trxHash } = useSwapCallbacks();
+  const {
+    approve,
+    loading: approveLoading,
+    trxHash: approveHash,
+  } = useApproveCallbacks(tokenFrom);
 
   const handleTokenFromChange = (event: {
     target: { value: React.SetStateAction<string> };
   }) => {
-    setTokenFrom(event.target.value);
+    console.log("token change ", event.target.value);
+    setTokenFrom(availableTokens?.[parseInt(event.target.value.toString())]);
   };
 
   const handleTokenToChange = (event: {
     target: { value: React.SetStateAction<string> };
   }) => {
-    setTokenTo(event.target.value);
+    setTokenTo(availableTokens?.[parseInt(event.target.value.toString())]);
   };
 
   const handleAmountFromChange = (event: {
     target: { value: React.SetStateAction<string> };
   }) => {
+    setSwapType(SWAP_TYPE.FROM);
     setAmountToSwap(event.target.value);
   };
 
   const handleAmountToChange = (event: {
     target: { value: React.SetStateAction<string> };
   }) => {
+    setSwapType(SWAP_TYPE.TO);
     setAmountToReceive(event.target.value);
   };
 
+  const parsedAmount0 = useMemo(
+    () =>
+      swapType === SWAP_TYPE.FROM
+        ? amountToSwap
+        : fromWei(token0Quote, tokenFrom.decimals),
+    [swapType, amountToSwap, token0Quote, tokenFrom]
+  );
+  const parsedAmount1 = useMemo(
+    () =>
+      swapType === SWAP_TYPE.FROM
+        ? fromWei(token1Quote, tokenTo.decimals)
+        : amountToReceive,
+    [swapType, token1Quote, amountToReceive, tokenTo]
+  );
 
-  const handleSwap = (event) => {
-	//reverse the from and to values
-	event.preventDefault();
-	
-	const temp = tokenFrom;
-	setTokenFrom(tokenTo);
-	setTokenTo(temp);
- };
-
-  const handSubmit = () => {
+  const handleSwap = async () => {
     // Perform the token swap logic here
     console.log(
       `Swapping ${amountToSwap} ${tokenFrom} to ${amountToReceive} ${tokenTo}`
     );
+
+    await swapTokens(
+      tokenFrom,
+      tokenTo,
+      swapType,
+      parsedAmount0,
+      parsedAmount1
+    );
     // You can call a function to execute the swap here
   };
 
+  const handleApprove = async () => {
+    await approve();
+  };
+
   return (
-   <form onSubmit={handSubmit}>
+    <form>
       <FromFieldset
-		handleTokenChange={handleTokenFromChange}
-		handleAmountChange={handleAmountFromChange}
-		amountFrom={amountToSwap}
-		tokenFrom={tokenFrom}
-		availableTokens={availableTokens}
-		/>
+        handleTokenChange={handleTokenFromChange}
+        handleAmountChange={handleAmountFromChange}
+        amountFrom={parsedAmount0}
+        tokenFrom={tokenFrom}
+        availableTokens={availableTokens}
+      />
 
-      <button className=" icon" onClick={handleSwap}>
-			<img src="/images/swap.svg" alt="" />
-      </button>
+      {/* <button className=" icon" onClick={handleSwap}>
+        <img src="/images/swap.svg" alt="" />
+      </button> */}
 
-      <ToFieldset 
-		handleTokenChange={handleTokenToChange}
-		handleAmountChange={handleAmountToChange}
-		amountTo={amountToReceive}
-		tokenTo={tokenTo}
-		availableTokens={availableTokens}
-		/>
+      <ToFieldset
+        handleTokenChange={handleTokenToChange}
+        handleAmountChange={handleAmountToChange}
+        amountTo={parsedAmount1}
+        tokenTo={tokenTo}
+        availableTokens={availableTokens}
+      />
 
-      <div className="actions">
-        <button className="button firm-voice" type="submit">
-          Swap
-        </button>
+      <fieldset className="swap-to offset-background">
+        <div
+          style={{
+            display: "flex",
+            width: "100%",
+            justifyContent: "space-around",
+          }}
+        >
+          <div>Oracle price: {oraclePrice}</div>
+          <div>Pool price: {dexPrice}</div>
+          <div>
+            Deviation: {oraclePrice > dexPrice ? "-" : "+"} {deviation} %{" "}
+          </div>
+        </div>
+      </fieldset>
+
+      <div>
+        {tokenFrom.symbol !== "ETH" &&
+        allowance &&
+        new BigNumber(allowance).lt(
+          toWei(parsedAmount0, tokenFrom.decimals)
+        ) ? (
+          <button
+            type="button"
+            className="button firm-voice"
+            disabled={approveLoading}
+            onClick={handleApprove}
+          >
+            {approveLoading ? "Approving..." : "Approve swap"}
+          </button>
+        ) : (
+          <button
+            type="button"
+            className="button firm-voice"
+            disabled={loading}
+            onClick={handleSwap}
+          >
+            {loading ? "Swapping..." : "Swap"}
+          </button>
+        )}
       </div>
     </form>
   );
