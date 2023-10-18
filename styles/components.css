@@ -24,7 +24,6 @@ a {
   background: var(--gradient-color);
   border-radius: var(--corners);
 
-  transform: rotate(-2deg);
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
@@ -41,6 +40,7 @@ a {
   height: calc(100% - 1px);
   transition: 0.2s ease-in-out;
   border-radius: var(--corners);
+  transform: rotate(-2deg);
 }
 
 .button:is(:hover, :focus-visible) {
@@ -51,10 +51,15 @@ a {
   width: 100%;
   bottom: 2px;
   left: 2px;
+  transform: rotate(0deg);
 }
 
 .button:active {
   outline: unset;
+}
+
+.button:active::before {
+  transform: scale(0.8);
 }
 
 /*  */

@@ -86,4 +86,8 @@ html {
     );
     --ink: var(--white);
   }
+
+  .icon {
+    filter: invert(1);
+  }
 }

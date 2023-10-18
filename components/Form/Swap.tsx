@@ -89,7 +89,7 @@ const Swap = () => {
 		availableTokens={availableTokens}
 		/>
 
-      <button className=" icon" onClick={handleSwap}>
+      <button className="icon" onClick={handleSwap}>
 			<img src="/images/swap.svg" alt="" />
       </button>
 
