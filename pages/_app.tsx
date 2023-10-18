@@ -16,8 +16,8 @@ const { chains, publicClient, webSocketPublicClient } = configureChains(
 );
 
 const { connectors } = getDefaultWallets({
-  appName: "RainbowKit App",
-  projectId: "YOUR_PROJECT_ID",
+  appName: "Uniswap fork",
+  projectId: "54ee227eb9eafd4f0c36343b5cbae98d",
   chains,
 });
 
