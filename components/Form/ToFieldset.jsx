@@ -15,9 +15,9 @@ export default function ToFieldset(props) {
           To
         </label>
         <select name="swap-to" id="tokenTo" onChange={handleTokenChange}>
-          {props.availableTokens.map((token) => (
-            <option key={token.name} value={token.chainId}>
-              {token.name}
+          {props.availableTokens.map((token, index) => (
+            <option selected={token.symbol === props?.tokenTo?.symbol} key={token.symbol} value={index}>
+              {token.symbol}
             </option>
           ))}
         </select>
@@ -32,17 +32,17 @@ export default function ToFieldset(props) {
           id="amountTo"
           type="number"
           value={props.amountTo}
-          step="0.01"
-          min="0.01"
+          // step="0.01"
+          // min="0.01"
           onChange={handleAmountChange}
           className="notice-voice"
         />
-        <p className="in-dollars">
+        {/* <p className="in-dollars">
           ${" "}
           {props.tokenTo.rate
             ? props.amountTo * props.tokenTo.rate
             : "Select a token"}
-        </p>
+        </p> */}
       </form-field>
     </fieldset>
   );
