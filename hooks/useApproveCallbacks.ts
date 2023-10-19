@@ -7,7 +7,7 @@ import {
 } from "wagmi";
 
 import { useState } from "react";
-import { ROUTER_ADDRESS, SWAP_TYPE, Token } from "./constants";
+import { ROUTER_ADDRESS, Token } from "./constants";
 import { toWei } from "./helpers";
 
 export function useApproveCallbacks(token: Token) {
@@ -17,7 +17,12 @@ export function useApproveCallbacks(token: Token) {
   const { address, connector, isConnected } = useAccount();
 
   const params = [ROUTER_ADDRESS, toWei(999999999999)];
-  const { writeAsync, data, isLoading, status } = useContractWrite({
+  const {
+    writeAsync,
+    data,
+    isLoading: trxLoading,
+    status,
+  } = useContractWrite({
     address: token.address,
     abi: erc20ABI,
     functionName: "approve",
@@ -27,7 +32,8 @@ export function useApproveCallbacks(token: Token) {
     try {
       setLoading(true);
 
-      await writeAsync();
+      const trx = await writeAsync();
+      setHash(trx.hash);
     } catch (error) {
       console.log("approve trx error ", { error });
     } finally {
@@ -35,13 +41,14 @@ export function useApproveCallbacks(token: Token) {
     }
   };
 
-  // const { isError, isSuccess, isLoading } = useWaitForTransaction({
-  //   hash: hash,
-  // });
+  const { isError, isSuccess, isLoading } = useWaitForTransaction({
+    hash: hash,
+    confirmations: 1,
+  });
 
   return {
     approve: approve,
     trxHash: data?.hash,
-    loading: isLoading || loading,
+    loading: isLoading || loading || trxLoading,
   };
 }
