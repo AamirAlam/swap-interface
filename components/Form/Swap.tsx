@@ -15,6 +15,7 @@ import { useSwapCallbacks } from "../../hooks/useSwapCallbacks";
 import { fromWei, toWei } from "../../hooks/helpers";
 import BigNumber from "bignumber.js";
 import { useApproveCallbacks } from "../../hooks/useApproveCallbacks";
+import { usePools } from "../../hooks/usePools";
 
 const availableTokens = [
   {
@@ -76,6 +77,8 @@ const Swap = () => {
     path,
     swapType
   );
+
+  const {} = usePools(tokenFrom, tokenTo);
 
   const { swapTokens, loading, trxHash } = useSwapCallbacks();
   const {
