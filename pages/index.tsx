@@ -11,21 +11,19 @@ const Home: NextPage = () => {
         <meta content="API3 swap demo" name="description" />
         <link href="/images/swap.svg" rel="icon" />
       </Head>
-		
-<section>
-<inner-column class="">
-		  <h1 className="booming-voice">
-		  		Oracle Protected <span className="gradient-text">Swap</span>
-          </h1>
-			 </inner-column>
-		
-</section>
-      <section>
-        <inner-column class="narrow">
-          <Swap />
-        </inner-column>
-      </section>
 
+      <section>
+        <div className="inner-column">
+          <h1 className="booming-voice">
+            Oracle Protected <span className="gradient-text">Swap</span>
+          </h1>
+        </div>
+      </section>
+      <section>
+        <div className="inner-column narrow">
+          <Swap />
+        </div>
+      </section>
     </>
   );
 };

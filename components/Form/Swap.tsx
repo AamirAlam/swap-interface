@@ -119,7 +119,7 @@ const Swap = () => {
 
   //
 
-  const handleSwitch = (event) => {
+  const handleSwitch = (event: React.MouseEvent<HTMLButtonElement>) => {
 	//console.log("switching");
 	event.preventDefault();
 	// switch logic 
