@@ -17,16 +17,18 @@
 /* C omponents */
 @import "components.css";
 
-/* S tuff (modules) */
-@import "modules.css";
-
 /* S ections and more stuff */
 @import "utilities.css";
 
 /* then other contextual styles */
 body {
-  background-color: var(--paper);
+  background: var(--paper);
   color: var(--ink);
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+  }
 }
 
 [data-rk] {
@@ -34,6 +36,19 @@ body {
 }
 
 main {
-  display: grid;
-  align-content: center;
+  /* display: grid; */
+  /* padding-top: var(--space-s); */
+}
+
+mast-head {
+  display: flex;
+  flex-wrap: wrap-reverse;
+  gap: var(--space-s);
+  justify-content: space-between;
+  align-items: center;
+}
+.site-nav {
+  display: flex;
+  gap: var(--space-m);
+  align-items: center;
 }

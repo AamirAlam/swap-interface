@@ -1,22 +1,43 @@
+//styling in style/form.css
+import React, { useRef } from "react";
+import { useEffect } from "react";
+import { gsap } from "gsap";
+
 export default function ToFieldset(props) {
+  // refs
+  const amountToRef = useRef(null);
+  const previousAmountToRef = useRef(props.amountTo);
+
+  useEffect(() => {
+    gsap.from(amountToRef.current, {
+      duration: 1,
+      textContent: previousAmountToRef.current,
+
+      ease: "Power1.easeIn",
+      stagger: 1,
+    });
+
+    previousAmountToRef.current = props.amountTo;
+  }, [props.amountTo]);
+
   // handlers
   const handleTokenChange = (e) => {
     props.handleTokenChange(e);
   };
 
-  const handleAmountChange = (e) => {
-    props.handleAmountChange(e);
-  };
-
   return (
-    <fieldset className="swap-to offset-background">
+    <fieldset className="swap-to">
       <form-field class="dropdown">
         <label className="whisper-voice" htmlFor="tokenTo">
           To
         </label>
         <select name="swap-to" id="tokenTo" onChange={handleTokenChange}>
           {props.availableTokens.map((token, index) => (
-            <option selected={token.symbol === props?.tokenTo?.symbol} key={token.symbol} value={index}>
+            <option
+              selected={token.symbol === props?.tokenTo?.symbol}
+              key={token.symbol}
+              value={index}
+            >
               {token.symbol}
             </option>
           ))}
@@ -28,15 +49,9 @@ export default function ToFieldset(props) {
           You Recieve
         </label>
 
-        <input
-          id="amountTo"
-          type="number"
-          value={props.amountTo}
-          // step="0.01"
-          // min="0.01"
-          onChange={handleAmountChange}
-          className="notice-voice"
-        />
+        <p className="notice-voice fake-input" ref={amountToRef}>
+          {props.amountTo}
+        </p>
         {/* <p className="in-dollars">
           ${" "}
           {props.tokenTo.rate

@@ -22,7 +22,7 @@ html {
   --color-lightest: hsla(var(--hue), 64%, 95%, 1);
   --color-dark: hsla(var(--hue), 51%, 46%, 1);
   --color-darker: hsla(var(--hue), 47%, 27%, 1);
-  --color-darkest: hsla(var(--hue), 40%, 5%, 1);
+  --color-darkest: hsla(var(--hue), 40%, 15%, 1);
 
   --highlight: hsla(calc(var(--hue) + 70), 65%, 60%, 1);
   --highlight-light: hsla(calc(var(--hue) + 70), 90%, 70%, 1);
@@ -44,23 +44,8 @@ html {
   --warning: hsla(44, 85%, 65%, 1);
   --error: hsla(0, 85%, 65%, 1);
 
-  --paper: var(--white);
-  --ink: var(--black);
-
   /* Gradients */
   --gradient-direction: 130deg;
-
-  --gradient-dark: linear-gradient(
-    var(--gradient-direction),
-    var(--paper) 35%,
-    var(--gray-darker)
-  );
-
-  --gradient-light: linear-gradient(
-    var(--gradient-direction),
-    var(--gray-light) 35%,
-    var(--white)
-  );
 
   --gradient-color: linear-gradient(
     var(--gradient-direction),
@@ -68,16 +53,30 @@ html {
     var(--highlight-lighter)
   );
 
-  --gradient-highlight: linear-gradient(
+  --gradient-dark: linear-gradient(
     var(--gradient-direction),
-    var(--highlight),
-    var(--tertiary-color)
+    var(--highlight-darkest),
+    var(--black),
+    var(--color-darkest),
+    var(--gray-darker)
   );
+
+  --gradient-light: linear-gradient(
+    var(--gradient-direction),
+    var(--highlight-lightest),
+    var(--white),
+    var(--color-lightest),
+    var(--gray-lighter)
+  );
+
+  /*  */
+  --paper: var(--gradient-light);
+  --ink: var(--black);
 }
 
 @media (prefers-color-scheme: dark) {
   html {
-    --paper: var(--black);
     --ink: var(--white);
+    --paper: var(--gradient-dark);
   }
 }

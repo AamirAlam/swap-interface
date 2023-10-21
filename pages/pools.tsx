@@ -1,13 +1,13 @@
 import type { NextPage } from "next";
-import Head from "next/head";
-import Swap from "../components/Form/Swap";
 
-// import Footer from "../components/Footer";
-const Home: NextPage = () => {
+import Head from "next/head";
+import PoolForm from "../components/PoolForm/PoolForm";
+
+const Pools: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Swap</title>
+        <title>Pools</title>
         <meta content="API3 swap demo" name="description" />
         <link href="/images/swap.svg" rel="icon" />
       </Head>
@@ -15,17 +15,18 @@ const Home: NextPage = () => {
       <section>
         <div className="inner-column">
           <h1 className="booming-voice">
-            Oracle Protected <span className="gradient-text">Swap</span>
+            <span className="gradient-text">Pools</span>
           </h1>
         </div>
       </section>
+
       <section>
-        <div className="inner-column narrow">
-          <Swap />
+        <div className="inner-column">
+          <PoolForm />
         </div>
       </section>
     </>
   );
 };
 
-export default Home;
+export default Pools;

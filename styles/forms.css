@@ -1,24 +1,26 @@
 form {
   display: grid;
   gap: var(--space-s);
+  /* justify-content: center; */
   /* box-shadow: var(--shadow-right); */
-  padding: var(--space-xl);
+
   border-radius: var(--corners);
 }
 
 fieldset {
   display: grid;
-  gap: var(--space-m);
+  gap: var(--space-2xs);
 
   padding: var(--space-s);
 
+  background: var(--gradient-color);
   border-radius: var(--corners);
-  /* box-shadow: var(--shadow-left); */
+  border: var(--border);
+  /* box-shadow: var(--shadow); */
 }
 
 fieldset.swap-to {
   /* box-shadow: var(--shadow-right); */
-  transform: rotate(1deg);
 }
 
 fieldset.swap-to form-field.number {
@@ -33,8 +35,8 @@ form-field {
 }
 
 form-field.dropdown {
-  display: grid;
-  grid-template-columns: 0.1fr 1fr;
+  display: flex;
+  gap: var(--space-s);
   justify-items: start;
   align-items: center;
 }
@@ -53,15 +55,25 @@ form-field.number p.in-dollars {
 
 /*  */
 
-input {
+input,
+.fake-input {
   border: none;
   background: var(--color-lightest);
-  padding: var(--space-s) var(--space-3xs);
+
   border-bottom: var(--border);
 }
 
+input:focus {
+  outline: none;
+  border-bottom: var(--border-highlight);
+}
+
+label {
+  color: var(--black);
+}
+
 select {
-  padding: var(--space-2xs);
+  padding: var(--space-3xs);
   border: none;
   background: var(--color-lighter);
   border-radius: var(--corners);
@@ -71,4 +83,59 @@ option {
   padding: var(--space-2xs);
   border: none;
   background: var(--highlight-lightest);
+}
+
+form > .switch {
+  justify-self: center;
+  max-width: 4rem;
+  /* margin: -24px auto;
+  background-color: aliceblue; */
+}
+
+/* info-box */
+
+form .info-box {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-s);
+  justify-content: space-between;
+  padding: var(--space-2xs);
+}
+
+.info-box li {
+  opacity: 0;
+}
+
+.info-box span {
+  color: var(--color);
+}
+
+@media (min-width: 768px) {
+  form .info-box {
+    /* flex-direction: row; */
+  }
+}
+
+/* pool form */
+
+.pool-form {
+  gap: var(--space-l);
+}
+
+.pool-form > section {
+  display: grid;
+  gap: var(--space-s);
+}
+@media (min-width: 768px) {
+  .pool-form > section {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.pool-form fieldset:has(.dropdown) {
+  grid-template-columns: 1fr 1fr;
+}
+
+.pool-form .actions {
+  justify-content: end;
 }

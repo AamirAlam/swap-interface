@@ -43,19 +43,24 @@ html {
 
 .booming-voice {
   font-family: var(--font2);
-  font-size: var(--step-5);
+  font-size: var(--step-4);
 
   font-weight: var(--weight-heavy);
+  text-wrap: balance;
+  text-align: center;
 }
 
 .loud-voice {
   font-family: var(--font2);
   font-size: var(--step-4);
+  font-weight: var(--weight-heavy);
+
+  text-wrap: balance;
 }
 
 @media (min-width: 600px) {
-  .loud-voice {
-    font-weight: var(--weight-light);
+  .booming-voice {
+    font-size: var(--step-5);
   }
 }
 
@@ -95,7 +100,7 @@ strong {
 .whisper-voice {
   font-size: var(--step--1);
 
-  color: var(--gray-light, #999);
+  color: var(--black, #999);
 }
 
 .solid-voice {

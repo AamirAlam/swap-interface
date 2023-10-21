@@ -41,7 +41,7 @@ export default function ConnectButton() {
               if (!connected) {
                 return (
                   <button
-                    className="button connect gradient-text"
+                    className="button connect"
                     onClick={openConnectModal}
                     type="button"
                   >
@@ -54,7 +54,7 @@ export default function ConnectButton() {
               if (chain.unsupported) {
                 return (
                   <button
-                    className="button gradient-text"
+                    className="button"
                     onClick={openChainModal}
                     type="button"
                   >

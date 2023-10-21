@@ -1,7 +1,14 @@
+//styling in style/form.css
+
+
+
 // src/components/Swap.js
 import React, { useMemo, useState } from "react";
 import FromFieldset from "./FromFieldset";
 import ToFieldset from "./ToFieldset";
+import InfoBox from "./InfoBox";
+
+//
 import { SWAP_TYPE } from "../../hooks/constants";
 import { useContractCalls } from "../../hooks/useContractCalls";
 import { useSwapCallbacks } from "../../hooks/useSwapCallbacks";
@@ -77,6 +84,9 @@ const Swap = () => {
     trxHash: approveHash,
   } = useApproveCallbacks(tokenFrom);
 
+
+
+  //
   const handleTokenFromChange = (event: {
     target: { value: React.SetStateAction<string> };
   }) => {
@@ -90,6 +100,8 @@ const Swap = () => {
     setTokenTo(availableTokens?.[parseInt(event.target.value.toString())]);
   };
 
+
+  //
   const handleAmountFromChange = (event: {
     target: { value: React.SetStateAction<string> };
   }) => {
@@ -104,6 +116,19 @@ const Swap = () => {
     setAmountToReceive(event.target.value);
   };
 
+
+  //
+
+  const handleSwitch = (event: React.MouseEvent<HTMLButtonElement>) => {
+	//console.log("switching");
+	event.preventDefault();
+	// switch logic 
+	 
+  };
+
+
+
+  //
   const parsedAmount0 = useMemo(
     () =>
       swapType === SWAP_TYPE.FROM
@@ -119,6 +144,9 @@ const Swap = () => {
     [swapType, token1Quote, amountToReceive, tokenTo]
   );
 
+
+
+
   const handleSwap = async () => {
     // Perform the token swap logic here
     console.log(
@@ -132,7 +160,7 @@ const Swap = () => {
       parsedAmount0,
       parsedAmount1
     );
-    // You can call a function to execute the swap here
+
   };
 
   const handleApprove = async () => {
@@ -149,9 +177,9 @@ const Swap = () => {
         availableTokens={availableTokens}
       />
 
-      {/* <button className=" icon" onClick={handleSwap}>
-        <img src="/images/swap.svg" alt="" />
-      </button> */}
+      <button className="icon switch" onClick={handleSwitch}>
+			<img src="/images/swap.svg" alt="" />
+      </button>
 
       <ToFieldset
         handleTokenChange={handleTokenToChange}
@@ -161,23 +189,14 @@ const Swap = () => {
         availableTokens={availableTokens}
       />
 
-      <fieldset className="swap-to offset-background">
-        <div
-          style={{
-            display: "flex",
-            width: "100%",
-            justifyContent: "space-around",
-          }}
-        >
-          <div>Oracle price: {oraclePrice}</div>
-          <div>Pool price: {dexPrice}</div>
-          <div>
-            Deviation: {oraclePrice > dexPrice ? "-" : "+"} {deviation} %{" "}
-          </div>
-        </div>
-      </fieldset>
+  
 
-      <div>
+	
+
+
+
+
+      <div className="actions">
         {tokenFrom.symbol !== "ETH" &&
         allowance &&
         new BigNumber(allowance).lt(
@@ -202,6 +221,17 @@ const Swap = () => {
           </button>
         )}
       </div>
+
+
+		
+			<InfoBox
+				oraclePrice={oraclePrice}
+				dexPrice={dexPrice}
+				deviation={deviation}
+				amountToSwap={amountToSwap}
+			/>
+
+
     </form>
   );
 };
