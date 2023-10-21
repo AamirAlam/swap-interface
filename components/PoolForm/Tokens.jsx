@@ -8,7 +8,7 @@ export default function Tokens(props) {
       <fieldset>
         <form-field class="dropdown">
           <label className="whisper-voice" htmlFor="tokenFrom">
-            From
+            Token 1
           </label>
           <select
             name="pool-from"
@@ -26,7 +26,7 @@ export default function Tokens(props) {
 
         <form-field class="dropdown">
           <label className="whisper-voice" htmlFor="tokenTo">
-            To
+            Token 2
           </label>
           <select
             value={props.tokenTo}

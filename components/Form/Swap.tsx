@@ -223,13 +223,14 @@ const Swap = () => {
       </div>
 
 
-		{oraclePrice || dexPrice || deviation ? (
+		
 			<InfoBox
 				oraclePrice={oraclePrice}
 				dexPrice={dexPrice}
 				deviation={deviation}
+				amountToSwap={amountToSwap}
 			/>
-		) : null}
+
 
     </form>
   );

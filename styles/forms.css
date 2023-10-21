@@ -55,7 +55,8 @@ form-field.number p.in-dollars {
 
 /*  */
 
-input {
+input,
+.fake-input {
   border: none;
   background: var(--color-lightest);
 
@@ -101,8 +102,12 @@ form .info-box {
   padding: var(--space-2xs);
 }
 
+.info-box li {
+  opacity: 0;
+}
+
 .info-box span {
-  color: var(--color-lighter);
+  color: var(--color);
 }
 
 @media (min-width: 768px) {
@@ -120,7 +125,11 @@ form .info-box {
 .pool-form > section {
   display: grid;
   gap: var(--space-s);
-  grid-template-columns: 1fr 1fr;
+}
+@media (min-width: 768px) {
+  .pool-form > section {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 .pool-form fieldset:has(.dropdown) {

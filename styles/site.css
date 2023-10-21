@@ -42,6 +42,8 @@ main {
 
 mast-head {
   display: flex;
+  flex-wrap: wrap-reverse;
+  gap: var(--space-s);
   justify-content: space-between;
   align-items: center;
 }
