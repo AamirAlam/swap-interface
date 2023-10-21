@@ -1,3 +1,5 @@
+//styling in style/form.css
+
 export default function FromFieldset(props) {
   // handlers
 
@@ -12,14 +14,21 @@ export default function FromFieldset(props) {
   };
 
   return (
-    <fieldset className="offset-background">
-      <form-field class="dropdown ">
+    <fieldset className="">
+      <form-field class="dropdown">
         <label className="whisper-voice" htmlFor="tokenFrom">
           From
         </label>
         <select name="swap-from" id="tokenFrom" onChange={handleTokenChange}>
           {props.availableTokens.map((token, index) => (
-            <option selected={token.symbol === props?.tokenTo?.symbol}   key={token.symbol} value={index}>
+            <option
+              selected={token.symbol === props?.tokenTo?.symbol}
+              key={token.symbol}
+              value={index}
+            >
+              {/* <picture>
+                <img src={token.icon} alt={token.name} />
+              </picture> */}
               {token.symbol}
             </option>
           ))}
@@ -28,7 +37,7 @@ export default function FromFieldset(props) {
 
       <form-field class="number">
         <label className="solid-voice" htmlFor="amountFrom">
-          {/* You pay */}
+          You pay
         </label>
 
         <input
@@ -36,7 +45,7 @@ export default function FromFieldset(props) {
           type="number"
           value={props.amountFrom}
           // step="0.01"
-          // min="0.01"
+          min="0"
           onChange={handleAmountChange}
           className="notice-voice"
         />

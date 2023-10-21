@@ -1,3 +1,5 @@
+//styling in style/form.css
+
 export default function ToFieldset(props) {
   // handlers
   const handleTokenChange = (e) => {
@@ -9,14 +11,18 @@ export default function ToFieldset(props) {
   };
 
   return (
-    <fieldset className="swap-to offset-background">
+    <fieldset className="swap-to">
       <form-field class="dropdown">
         <label className="whisper-voice" htmlFor="tokenTo">
           To
         </label>
         <select name="swap-to" id="tokenTo" onChange={handleTokenChange}>
           {props.availableTokens.map((token, index) => (
-            <option selected={token.symbol === props?.tokenTo?.symbol} key={token.symbol} value={index}>
+            <option
+              selected={token.symbol === props?.tokenTo?.symbol}
+              key={token.symbol}
+              value={index}
+            >
               {token.symbol}
             </option>
           ))}
