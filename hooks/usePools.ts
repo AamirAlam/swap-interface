@@ -96,6 +96,7 @@ export function usePools(token0: Token, token1: Token) {
   return {
     lpBalance: data?.[0]?.result?.toString(),
     pairAddress: pairAddress,
+    pairDecimals: (token0.decimals + token1.decimals) / 2,
     balances,
   };
 }

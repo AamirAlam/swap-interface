@@ -67,7 +67,8 @@ export function useContractCalls(
   const tradeQuote: TradeQuote = useMemo(() => {
     if (
       quoteData?.[0]?.status === "failure" ||
-      quoteData?.[1]?.status === "failure"
+      quoteData?.[1]?.status === "failure" ||
+      !quoteData
     ) {
       return {
         token0Amount: "",
