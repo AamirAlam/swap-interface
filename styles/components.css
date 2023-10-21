@@ -34,13 +34,13 @@ a {
   content: "";
   position: absolute;
   border: var(--line-width) solid var(--ink);
-  bottom: 4px;
-  left: 4px;
-  width: calc(100% - 1px);
-  height: calc(100% - 1px);
+  bottom: 0px;
+  left: 0px;
+  width: 101%;
+  height: 101%;
   transition: 0.2s ease-in-out;
   border-radius: var(--corners);
-  transform: rotate(-2deg);
+  transform: rotate(-2deg) translate(3px, -3px);
 }
 
 .button:is(:hover, :focus-visible) {
@@ -48,9 +48,6 @@ a {
 }
 
 .button:is(:hover, :focus-visible)::before {
-  width: 100%;
-  bottom: 2px;
-  left: 2px;
   transform: rotate(0deg);
 }
 
@@ -59,7 +56,7 @@ a {
 }
 
 .button:active::before {
-  transform: scale(0.8);
+  /* transform: scale(0.8); */
 }
 
 /*  */
@@ -96,10 +93,17 @@ a {
   object-position: center;
 }
 
-form > button.icon {
-  justify-self: center;
-  max-width: 4rem;
+/* text */
+
+/* Text buttons and acnhors  */
+:is(button, a).text {
+  padding: 0.5em 1em;
+  background: none;
+  border: none;
+
+  color: var(--ink);
 }
+
 /*  */
 
 div.actions,

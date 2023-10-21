@@ -17,9 +17,6 @@
 /* C omponents */
 @import "components.css";
 
-/* S tuff (modules) */
-@import "modules.css";
-
 /* S ections and more stuff */
 @import "utilities.css";
 
@@ -29,12 +26,27 @@ body {
   color: var(--ink);
 }
 
+@media (prefers-color-scheme: dark) {
+  body {
+  }
+}
+
 [data-rk] {
   display: contents;
 }
 
 main {
-  display: grid;
-  align-content: center;
-  padding-top: var(--space-s);
+  /* display: grid; */
+  /* padding-top: var(--space-s); */
+}
+
+mast-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.site-nav {
+  display: flex;
+  gap: var(--space-m);
+  align-items: center;
 }

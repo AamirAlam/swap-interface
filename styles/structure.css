@@ -22,7 +22,7 @@ inner-column.wide {
 }
 
 inner-column.narrow {
-  max-width: 700px; /* could be a variable in settings */
+  max-width: 500px; /* could be a variable in settings */
   /* padding: var(--space-l); */
 }
 
