@@ -7,10 +7,24 @@ import Position from "../components/Position";
 const Pools: NextPage = () => {
   return (
     <>
-      <Head>
+       <Head>
         <title>Pools</title>
-        <meta content="API3 swap demo" name="description" />
+		  <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link href="/images/swap.svg" rel="icon" />
+
+		  <meta property="og:image" content="/images/swap-meta.jpg" />
+
+        <meta content="API3's Demo of its Oracle for Swapping and Liquidity" name="description" />
+
+		  <meta property="og:locale" content="en_US" />
+		  
+
+		  {/* theme color */}
+		  <meta name="theme-color" content="#a785e2" />
+
+
+
+
       </Head>
 
       <section>

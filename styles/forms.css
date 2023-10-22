@@ -11,7 +11,7 @@ fieldset {
   display: grid;
   gap: var(--space-2xs);
 
-  padding: var(--space-s);
+  padding: var(--space-xs);
 
   background: var(--gradient-color);
   border-radius: var(--corners);
