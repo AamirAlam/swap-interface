@@ -2,7 +2,7 @@ import { useAccount, useContractWrite, useWaitForTransaction } from "wagmi";
 import ROUTER_ABI from "./abis/router.json";
 import { useState } from "react";
 import { ROUTER_ADDRESS, Token } from "./constants";
-import { getUnixTime } from "./helpers";
+import { getUnixTime, toWei } from "./helpers";
 import { parseEther } from "viem";
 
 export function useLiquidityCallbacks() {
@@ -63,7 +63,9 @@ export function useLiquidityCallbacks() {
         const tokenAddress =
           token0.symbol === "ETH" ? token1.address : token0.address;
         const tokenAmount =
-          token0.symbol === "ETH" ? token0Amount : token1Amount;
+          token0.symbol === "ETH"
+            ? toWei(token0Amount, token0.decimals)
+            : toWei(token1Amount, token1.decimals);
         const ethAmount = token0.symbol === "ETH" ? token0Amount : token1Amount;
 
         const params = [
@@ -87,8 +89,8 @@ export function useLiquidityCallbacks() {
         const params = [
           token0.address,
           token1.address,
-          token0Amount,
-          token1Amount,
+          toWei(token0Amount, token0.decimals),
+          toWei(token1Amount, token1.decimals),
           0,
           0,
           address,
@@ -113,7 +115,8 @@ export function useLiquidityCallbacks() {
   const withdrawLiquidity = async (
     token0: Token,
     token1: Token,
-    lpAmount: string
+    lpAmount: string,
+    decimals: number
   ) => {
     try {
       if ([token0.symbol, token1.symbol].includes("ETH")) {
@@ -121,7 +124,14 @@ export function useLiquidityCallbacks() {
         const tokenAddress =
           token0.symbol === "ETH" ? token1.address : token0.address;
 
-        const params = [tokenAddress, lpAmount, 0, 0, address, getUnixTime(20)];
+        const params = [
+          tokenAddress,
+          toWei(lpAmount, decimals),
+          0,
+          0,
+          address,
+          getUnixTime(20),
+        ];
         setLoading(true);
         const trxRes = await removeLiquidityETH({
           args: [...params],
@@ -134,7 +144,7 @@ export function useLiquidityCallbacks() {
         const params = [
           token0.address,
           token1.address,
-          lpAmount,
+          toWei(lpAmount, decimals),
           0,
           0,
           address,

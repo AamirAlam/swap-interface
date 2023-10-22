@@ -1,7 +1,5 @@
 //styling in style/form.css
 
-
-
 // src/components/Swap.js
 import React, { useMemo, useState } from "react";
 import FromFieldset from "./FromFieldset";
@@ -10,12 +8,13 @@ import InfoBox from "./InfoBox";
 
 //
 import { SWAP_TYPE } from "../../hooks/constants";
-import { useContractCalls } from "../../hooks/useContractCalls";
 import { useSwapCallbacks } from "../../hooks/useSwapCallbacks";
 import { fromWei, toWei } from "../../hooks/helpers";
 import BigNumber from "bignumber.js";
 import { useApproveCallbacks } from "../../hooks/useApproveCallbacks";
 import { usePools } from "../../hooks/usePools";
+import { useDeviation } from "../../hooks/useDeviation";
+import { useSwapQuote } from "../../hooks/useSwapQuote";
 
 const availableTokens = [
   {
@@ -55,21 +54,12 @@ const Swap = () => {
   const [swapType, setSwapType] = useState(SWAP_TYPE.FROM);
 
   const path = useMemo(() => {
-    return swapType === SWAP_TYPE.FROM
-      ? [tokenFrom.address, tokenTo.address]
-      : [tokenTo.address, tokenFrom.address];
-  }, [tokenFrom, tokenTo, swapType]);
+    return [tokenFrom.address, tokenTo.address];
+  }, [tokenFrom, tokenTo]);
 
   const {
-    allowance,
-    tradeQuote: {
-      deviation,
-      dexPrice,
-      oraclePrice,
-      token0Amount: token0Quote,
-      token1Amount: token1Quote,
-    },
-  } = useContractCalls(
+    tradeQuote: { token0Quote, token1Quote },
+  } = useSwapQuote(
     tokenFrom,
     tokenTo,
     amountToSwap,
@@ -78,16 +68,26 @@ const Swap = () => {
     swapType
   );
 
+  const {
+    tradeQuote: { deviation, dexPrice, oraclePrice },
+  } = useDeviation(
+    tokenFrom,
+    tokenTo,
+    token0Quote,
+    token1Quote,
+    path,
+    swapType
+  );
+
   const {} = usePools(tokenFrom, tokenTo);
 
   const { swapTokens, loading, trxHash } = useSwapCallbacks();
   const {
+    allowance,
     approve,
     loading: approveLoading,
     trxHash: approveHash,
   } = useApproveCallbacks(tokenFrom);
-
-
 
   //
   const handleTokenFromChange = (event: {
@@ -102,7 +102,6 @@ const Swap = () => {
   }) => {
     setTokenTo(availableTokens?.[parseInt(event.target.value.toString())]);
   };
-
 
   //
   const handleAmountFromChange = (event: {
@@ -119,17 +118,16 @@ const Swap = () => {
     setAmountToReceive(event.target.value);
   };
 
-
-  //
-
   const handleSwitch = (event: React.MouseEvent<HTMLButtonElement>) => {
-	//console.log("switching");
-	event.preventDefault();
-	// switch logic 
-	 
+    const _tokenFrom = tokenFrom;
+    const amount0 = parsedAmount0;
+    setTokenFrom(tokenTo);
+    setAmountToSwap(parsedAmount1);
+
+    setTokenTo(_tokenFrom);
+
+    setAmountToReceive(amount0);
   };
-
-
 
   //
   const parsedAmount0 = useMemo(
@@ -147,9 +145,6 @@ const Swap = () => {
     [swapType, token1Quote, amountToReceive, tokenTo]
   );
 
-
-
-
   const handleSwap = async () => {
     // Perform the token swap logic here
     console.log(
@@ -163,7 +158,6 @@ const Swap = () => {
       parsedAmount0,
       parsedAmount1
     );
-
   };
 
   const handleApprove = async () => {
@@ -180,8 +174,8 @@ const Swap = () => {
         availableTokens={availableTokens}
       />
 
-      <button className="icon switch" onClick={handleSwitch}>
-			<img src="/images/swap.svg" alt="" />
+      <button type="button" className="icon switch" onClick={handleSwitch}>
+        <img src="/images/swap.svg" alt="switch" />
       </button>
 
       <ToFieldset
@@ -191,13 +185,6 @@ const Swap = () => {
         tokenTo={tokenTo}
         availableTokens={availableTokens}
       />
-
-  
-
-	
-
-
-
 
       <div className="actions">
         {tokenFrom.symbol !== "ETH" &&
@@ -225,16 +212,12 @@ const Swap = () => {
         )}
       </div>
 
-
-		
-			<InfoBox
-				oraclePrice={oraclePrice}
-				dexPrice={dexPrice}
-				deviation={deviation}
-				amountToSwap={amountToSwap}
-			/>
-
-
+      <InfoBox
+        oraclePrice={oraclePrice}
+        dexPrice={dexPrice}
+        deviation={deviation}
+        amountToSwap={amountToSwap}
+      />
     </form>
   );
 };

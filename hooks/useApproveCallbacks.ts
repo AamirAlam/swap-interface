@@ -2,6 +2,7 @@
 import {
   erc20ABI,
   useAccount,
+  useContractRead,
   useContractWrite,
   useWaitForTransaction,
 } from "wagmi";
@@ -15,6 +16,16 @@ export function useApproveCallbacks(token: Token) {
   const [loading, setLoading] = useState(false);
 
   const { address, connector, isConnected } = useAccount();
+
+  const { data: allowance } = useContractRead({
+    address: token.address,
+    abi: erc20ABI,
+    functionName: "allowance",
+    args: [address, ROUTER_ADDRESS],
+    watch: true,
+  });
+
+  console.log("allowance info ", allowance);
 
   const params = [ROUTER_ADDRESS, toWei(999999999999)];
   const {
@@ -47,6 +58,7 @@ export function useApproveCallbacks(token: Token) {
   });
 
   return {
+    allowance: allowance?.toString(),
     approve: approve,
     trxHash: data?.hash,
     loading: isLoading || loading || trxLoading,
