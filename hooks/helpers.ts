@@ -35,3 +35,25 @@ export const getUnixTime = (timeInMintes: number) => {
   const _timeUnix = Math.floor(now / 1000);
   return _timeUnix;
 };
+
+export const getTokenOutWithReserveRatio = (
+  tokenIn: string,
+  token1Reserve: string,
+  token2Reserve: string
+) => {
+  const _token1 = new BigNumber(token1Reserve ? token1Reserve : 0);
+  const _token2 = new BigNumber(token2Reserve ? token2Reserve : 0);
+
+  if (_token1.eq("0") || _token2.eq("0")) {
+    return new BigNumber("0").toFixed(4).toString();
+  }
+
+  try {
+    const _out = _token1.div(_token2).multipliedBy(tokenIn);
+
+    return _out.toString();
+  } catch (error) {
+    console.log("exeption getTokenOut", error);
+    return "0";
+  }
+};

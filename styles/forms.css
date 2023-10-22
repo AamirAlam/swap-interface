@@ -137,5 +137,5 @@ form .info-box {
 }
 
 .pool-form .actions {
-  justify-content: end;
+  justify-content: start;
 }

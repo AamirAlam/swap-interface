@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 
 import Head from "next/head";
 import PoolForm from "../components/PoolForm/PoolForm";
+import Position from "../components/Position";
 
 const Pools: NextPage = () => {
   return (

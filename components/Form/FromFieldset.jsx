@@ -22,7 +22,7 @@ export default function FromFieldset(props) {
         <select name="swap-from" id="tokenFrom" onChange={handleTokenChange}>
           {props.availableTokens.map((token, index) => (
             <option
-              selected={token.symbol === props?.tokenTo?.symbol}
+              selected={token.symbol === props?.tokenFrom?.symbol}
               key={token.symbol}
               value={index}
             >
