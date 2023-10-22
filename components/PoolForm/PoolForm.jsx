@@ -45,7 +45,7 @@ export default function PoolForm(props) {
   const [token1, setToken1] = useState(availableTokens[1]);
   const [token0Amount, setToken0Amount] = useState("");
   const [token1Amount, setToken1Amount] = useState("");
-  const [showRemove , setShowRemove] = useState(false);
+  const [showRemove, setShowRemove] = useState(false);
   const [lpAmount, setLpAmount] = useState("");
 
   const [swapType, setSwapType] = useState(SWAP_TYPE.FROM);
@@ -53,7 +53,7 @@ export default function PoolForm(props) {
   const resetTokenInputs = () => {
     setToken0Amount("");
     setToken1Amount("");
-    setLpAmount("")
+    setLpAmount("");
   };
 
   const handleToken0Change = (e) => {
@@ -87,12 +87,8 @@ export default function PoolForm(props) {
     loading: token1ApprovalLoading,
   } = useApproveCallbacks(token1);
 
-
-
-  const { lpBalance, pairAddress, pairDecimals, getToken0In, getToken1Out } = usePools(
-    token0,
-    token1
-  );
+  const { lpBalance, pairAddress, pairDecimals, getToken0In, getToken1Out } =
+    usePools(token0, token1);
 
   const parsedAmount0 = useMemo(() => {
     if (pairAddress === "0x0000000000000000000000000000000000000000") {
@@ -122,7 +118,7 @@ export default function PoolForm(props) {
     }
 
     if (loading) {
-      return showRemove ? 'Withdrawing...' : "Supplying...";
+      return showRemove ? "Withdrawing..." : "Supplying...";
     }
 
     if (
@@ -139,11 +135,11 @@ export default function PoolForm(props) {
       return `Approve ${token1.symbol}`;
     }
 
-    if(showRemove){
-      return "Withdraw"
+    if (showRemove) {
+      return "Withdraw";
     }
 
-    return "Supply";
+    return "Supply liquidity";
   }, [
     token0Allowance,
     token1Allowance,
@@ -154,7 +150,7 @@ export default function PoolForm(props) {
     token0,
     token1,
     loading,
-    showRemove
+    showRemove,
   ]);
   const handleAddLiquidity = async () => {
     if (
@@ -177,63 +173,67 @@ export default function PoolForm(props) {
   };
 
   const handleRemoveLiquidity = async () => {
-
-      await withdrawLiquidity(token0, token1, lpAmount, pairDecimals  )
-
-  }
-
-
-
+    await withdrawLiquidity(token0, token1, lpAmount, pairDecimals);
+  };
 
   const handleLpAmountChange = (e) => {
-      setLpAmount(e.target.value)
-  }
+    setLpAmount(e.target.value);
+  };
 
-  const handleMax = () => {
-    setLpAmount(fromWei(lpBalance, pairDecimals))
-  }
+  const handleMax = (e) => {
+    e.preventDefault();
+    setLpAmount(fromWei(lpBalance, pairDecimals));
+  };
+
+  const handleRemoveLiquidityButton = (e) => {
+    e.preventDefault();
+    showRemove ? setShowRemove(false) : setShowRemove(true);
+  };
 
   return (
-    <div style={{ display: "flex" }}>
-      <form className="pool-form">
-        <Tokens
-          token0={token0}
-          token1={token1}
-          availableTokens={availableTokens}
-          handleToken0Change={handleToken0Change}
-          handleToken1Change={handleToken1Change}
-        />
+    <form className="pool-form">
+      <Tokens
+        token0={token0}
+        token1={token1}
+        availableTokens={availableTokens}
+        handleToken0Change={handleToken0Change}
+        handleToken1Change={handleToken1Change}
+      />
 
-       {!showRemove &&  <Deposit
+      {!showRemove && (
+        <Deposit
           token0Amount={parsedAmount0}
           token1Amount={parsedAmount1}
           handleAmount0Change={handleAmount0Change}
           handleAmount1Change={handleAmount1Change}
-        />}
-        {showRemove &&  <Remove
+        />
+      )}
+      {showRemove && (
+        <Remove
           lpAmount={lpAmount}
           handleLpAmountChange={handleLpAmountChange}
           handleMax={handleMax}
-          handleBack={() => setShowRemove(false)}
-        />}
+        />
+      )}
 
-        <div className="actions">
-          <button
-            type="button"
-            disabled={loading || token0ApprovalLoading || token1ApprovalLoading}
-            onClick={showRemove ? handleRemoveLiquidity : handleAddLiquidity}
-            className="button firm-voice"
-          >
-            {buttonText}
-          </button>
-        </div>
-      </form>
+      <Position token0={token0} token1={token1} />
 
-      <section>
-        <div className="inner-column">
-          <Position token0={token0} token1={token1} handleRemove={() => setShowRemove(true)}  />
-        </div>
-      </section>
-    </div>
+      <div className="actions">
+        <button
+          onClick={handleRemoveLiquidityButton}
+          className="button calm-voice outline"
+        >
+          {showRemove ? "Back" : "Remove liquidity"}
+        </button>
+        <button
+          type="button"
+          disabled={loading || token0ApprovalLoading || token1ApprovalLoading}
+          onClick={showRemove ? handleRemoveLiquidity : handleAddLiquidity}
+          className="button calm-voice"
+        >
+          {buttonText}
+        </button>
+      </div>
+    </form>
   );
 }

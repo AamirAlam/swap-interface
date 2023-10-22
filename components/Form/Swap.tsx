@@ -165,7 +165,7 @@ const Swap = () => {
   };
 
   return (
-    <form>
+    <form className="swap-form">
       <FromFieldset
         handleTokenChange={handleTokenFromChange}
         handleAmountChange={handleAmountFromChange}

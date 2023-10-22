@@ -58,9 +58,10 @@ form-field.number p.in-dollars {
 input,
 .fake-input {
   border: none;
+  color: var(--black);
   background: var(--color-lightest);
 
-  border-bottom: var(--border);
+  border-bottom: var(--line-width) solid var(--black);
 }
 
 input:focus {
@@ -102,7 +103,7 @@ form .info-box {
   padding: var(--space-2xs);
 }
 
-.info-box li {
+.swap-form .info-box li {
   opacity: 0;
 }
 
@@ -139,5 +140,9 @@ form .info-box {
 }
 
 .pool-form .actions {
-  justify-content: start;
+  justify-content: end;
+}
+
+.pool-form section.remove .actions button {
+  color: var(--black);
 }
