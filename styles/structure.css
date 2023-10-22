@@ -15,7 +15,7 @@ inner-column,
   max-width: 1100px; /* could be a variable in settings */
   margin-right: auto;
   margin-left: auto;
-  padding: var(--space-m); /* a loose default */
+  padding: var(--space-m) var(--space-s); /* a loose default */
 }
 
 :is(inner-column, .inner-column).wide {

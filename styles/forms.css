@@ -133,7 +133,9 @@ form .info-box {
 }
 
 .pool-form fieldset:has(.dropdown) {
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--space-s);
+  justify-content: space-between;
 }
 
 .pool-form .actions {
