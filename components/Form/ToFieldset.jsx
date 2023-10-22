@@ -49,9 +49,20 @@ export default function ToFieldset(props) {
           You Recieve
         </label>
 
-        <p className="notice-voice fake-input" ref={amountToRef}>
+        {/* <p className="notice-voice fake-input" ref={amountToRef}>
           {props.amountTo}
-        </p>
+        </p> */}
+
+        <input
+        ref={amountToRef}
+          id="amountTo"
+          type="number"
+          value={props.amountTo}
+          // step="0.01"
+          min="0"
+          onChange={props.handleAmountToChange}
+          className="notice-voice"
+        />
         {/* <p className="in-dollars">
           ${" "}
           {props.tokenTo.rate

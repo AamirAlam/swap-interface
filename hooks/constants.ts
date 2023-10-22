@@ -1,6 +1,6 @@
 // contract addresses
 export const ROUTER_ADDRESS = "0x3990eE369Fb517906362F3C69fa78dc78672A146";
-export const FACTORY_ADDRESS = "";
+export const FACTORY_ADDRESS = "0xDd2183623973093F149000Be20224056d68ADD5a";
 
 export interface Token {
   id: number;
