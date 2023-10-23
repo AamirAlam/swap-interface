@@ -90,6 +90,20 @@ export default function PoolForm(props) {
   const { lpBalance, pairAddress, pairDecimals, getToken0In, getToken1Out } =
     usePools(token0, token1);
 
+  const {
+    allowance: lpAllowance,
+    approve: lpApprove,
+    loading: lpAllowanceLoading,
+  } = useApproveCallbacks({
+    address: pairAddress,
+    chainId: 5,
+    decimals: pairDecimals,
+    icon: "",
+    id: 1,
+    name: "",
+    symbol: "",
+  });
+
   const parsedAmount0 = useMemo(() => {
     if (pairAddress === "0x0000000000000000000000000000000000000000") {
       return token0Amount;
@@ -121,6 +135,16 @@ export default function PoolForm(props) {
       return showRemove ? "Withdrawing..." : "Supplying...";
     }
 
+    if(showRemove && lpAllowanceLoading){
+      return 'Approving...'
+    }
+
+    if(showRemove && new BigNumber(lpAllowance).lt(toWei(lpAmount, pairDecimals))  ){
+      return 'Approve LP'
+    }
+
+
+
     if (
       token0.symbol !== "ETH" &&
       new BigNumber(token0Allowance).lt(toWei(parsedAmount0, token0.decimals))
@@ -151,6 +175,10 @@ export default function PoolForm(props) {
     token1,
     loading,
     showRemove,
+    lpAllowance,
+    lpAmount,
+    pairDecimals,
+    lpAllowanceLoading
   ]);
   const handleAddLiquidity = async () => {
     if (
@@ -173,6 +201,14 @@ export default function PoolForm(props) {
   };
 
   const handleRemoveLiquidity = async () => {
+
+    if(showRemove && new BigNumber(lpAllowance).lt(toWei(lpAmount, pairDecimals))  ){
+      lpApprove()
+      return
+    }
+
+
+
     await withdrawLiquidity(token0, token1, lpAmount, pairDecimals);
   };
 
