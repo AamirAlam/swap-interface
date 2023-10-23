@@ -1,11 +1,10 @@
 // @ts-nocheck
-import { useAccount, useContractRead, useContractReads } from "wagmi";
+import { useContractReads } from "wagmi";
 
 import { useMemo } from "react";
-import { ROUTER_ADDRESS, SWAP_TYPE, Token, TradeQuote } from "./constants";
-import { erc20ABI } from "wagmi";
+import { ROUTER_ADDRESS, SWAP_TYPE, Token } from "./constants";
 import ROUTER_ABI from "./abis/router.json";
-import { fromWei, toWei } from "./helpers";
+import { fromWei } from "./helpers";
 import BigNumber from "bignumber.js";
 
 export function useDeviation(
@@ -16,23 +15,13 @@ export function useDeviation(
   path: string[],
   swapType: string
 ) {
-  const { address, connector, isConnected } = useAccount();
-
   const tokenInput = useMemo(() => {
-    return swapType === SWAP_TYPE.FROM
-      ? toWei(token0Amount, token0.decimals)
-      : toWei(token1Amount, token1.decimals);
-  }, [swapType, token0Amount, token1Amount, token0, token1]);
+    return swapType === SWAP_TYPE.FROM ? token0Amount : token1Amount;
+  }, [swapType, token0Amount, token1Amount]);
+
+  // console.log("deviation test params ", { tokenInput, path });
   const { data: quoteData } = useContractReads({
     contracts: [
-      // {
-      //   address: ROUTER_ADDRESS,
-      //   abi: ROUTER_ABI,
-      //   functionName:
-      //     swapType === SWAP_TYPE.FROM ? "getAmountsOut" : "getAmountsIn",
-      //   args: [tokenInput, path],
-      //   chainId: 5,
-      // },
       {
         address: ROUTER_ADDRESS,
         abi: ROUTER_ABI,
@@ -44,13 +33,13 @@ export function useDeviation(
     watch: true,
   });
 
-  console.log("quote info ", {
-    quoteData,
-    token0Amount,
-    token1Amount,
-    token0,
-    token1,
-  });
+  // console.log("quote info ", {
+  //   quoteData,
+  //   token0Amount,
+  //   token1Amount,
+  //   token0,
+  //   token1,
+  // });
   const tradeQuote = useMemo(() => {
     if (
       quoteData?.[0]?.status === "failure" ||
@@ -71,10 +60,10 @@ export function useDeviation(
       dexPrice: new BigNumber(
         new BigNumber(quoteData?.[0]?.result?.[2]?.toString()).div(10 ** 8)
       )
-        .div(token0Amount)
+        .div(fromWei(token0Amount, token0.decimals))
         .toFixed(4),
     };
-  }, [quoteData, token0Amount]);
+  }, [quoteData, token0Amount, token0]);
 
   return {
     tradeQuote: tradeQuote,

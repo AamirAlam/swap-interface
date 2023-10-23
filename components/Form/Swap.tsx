@@ -1,12 +1,7 @@
-//styling in style/form.css
-
-// src/components/Swap.js
 import React, { useMemo, useState } from "react";
 import FromFieldset from "./FromFieldset";
 import ToFieldset from "./ToFieldset";
 import InfoBox from "./InfoBox";
-
-//
 import { SWAP_TYPE } from "../../hooks/constants";
 import { useSwapCallbacks } from "../../hooks/useSwapCallbacks";
 import { fromWei, toWei } from "../../hooks/helpers";
@@ -15,9 +10,8 @@ import { useApproveCallbacks } from "../../hooks/useApproveCallbacks";
 import { usePools } from "../../hooks/usePools";
 import { useDeviation } from "../../hooks/useDeviation";
 import { useSwapQuote } from "../../hooks/useSwapQuote";
-
-//
 import gsap from "gsap";
+import { useUSDValues } from "../../hooks/useUSDValues";
 
 const availableTokens = [
   {
@@ -93,11 +87,9 @@ const Swap = () => {
     trxHash: approveHash,
   } = useApproveCallbacks(tokenFrom);
 
-  //
   const handleTokenFromChange = (event: {
     target: { value: React.SetStateAction<string> };
   }) => {
-    console.log("token change ", event.target.value);
     setTokenFrom(availableTokens?.[parseInt(event.target.value.toString())]);
   };
 
@@ -107,7 +99,6 @@ const Swap = () => {
     setTokenTo(availableTokens?.[parseInt(event.target.value.toString())]);
   };
 
-  //
   const handleAmountFromChange = (event: {
     target: { value: React.SetStateAction<string> };
   }) => {
@@ -125,7 +116,6 @@ const Swap = () => {
   const handleSwitch = (event: React.MouseEvent<HTMLButtonElement>) => {
     const _tokenFrom = tokenFrom;
     const amount0 = parsedAmount0;
-  
 
     gsap.to(event.target, {
       duration: 0.5,
@@ -133,8 +123,8 @@ const Swap = () => {
       ease: "elastic.inOut(1, 0.8)",
     });
 
-	 setIsSwitched(!isSwitched);
-	 setTokenFrom(tokenTo);
+    setIsSwitched(!isSwitched);
+    setTokenFrom(tokenTo);
     setAmountToSwap(parsedAmount1);
 
     setTokenTo(_tokenFrom);
@@ -142,7 +132,6 @@ const Swap = () => {
     setAmountToReceive(amount0);
   };
 
-  //
   const parsedAmount0 = useMemo(
     () =>
       swapType === SWAP_TYPE.FROM
@@ -158,12 +147,14 @@ const Swap = () => {
     [swapType, token1Quote, amountToReceive, tokenTo]
   );
 
-  const handleSwap = async () => {
-    // Perform the token swap logic here
-    console.log(
-      `Swapping ${amountToSwap} ${tokenFrom} to ${amountToReceive} ${tokenTo}`
-    );
+  const { token0USD, token1USD } = useUSDValues(
+    tokenFrom,
+    tokenTo,
+    parsedAmount0,
+    parsedAmount1
+  );
 
+  const handleSwap = async () => {
     await swapTokens(
       tokenFrom,
       tokenTo,
@@ -184,6 +175,7 @@ const Swap = () => {
         handleAmountChange={handleAmountFromChange}
         amountFrom={parsedAmount0}
         tokenFrom={tokenFrom}
+        token0USD={token0USD}
         availableTokens={availableTokens}
       />
 
@@ -196,6 +188,7 @@ const Swap = () => {
         handleAmountChange={handleAmountToChange}
         amountTo={parsedAmount1}
         tokenTo={tokenTo}
+        token1USD={token1USD}
         availableTokens={availableTokens}
       />
 
