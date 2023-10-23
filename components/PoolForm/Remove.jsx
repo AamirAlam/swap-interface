@@ -1,10 +1,12 @@
 export default function Remove(props) {
   return (
-    <section>
-     
+    <section className="remove">
+      <text-content>
+        <h2 className="attention-voice">Remove</h2>
+        <p></p>
+      </text-content>
 
       <fieldset>
-      <button type="button" onClick={props.handleBack} className="button ">Back</button>
         <form-field class="number">
           <label className="solid-voice" htmlFor="amountFrom">
             LP Token Amount
@@ -19,7 +21,11 @@ export default function Remove(props) {
           />
         </form-field>
 
-        <button type="button" onClick={props.handleMax} className="button voice">max</button>
+        <div className="actions">
+          <button onClick={props.handleMax} className="text whisper-voice">
+            Use max
+          </button>
+        </div>
       </fieldset>
     </section>
   );

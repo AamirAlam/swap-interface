@@ -11,7 +11,7 @@ fieldset {
   display: grid;
   gap: var(--space-2xs);
 
-  padding: var(--space-s);
+  padding: var(--space-xs);
 
   background: var(--gradient-color);
   border-radius: var(--corners);
@@ -58,9 +58,10 @@ form-field.number p.in-dollars {
 input,
 .fake-input {
   border: none;
+  color: var(--black);
   background: var(--color-lightest);
 
-  border-bottom: var(--border);
+  border-bottom: var(--line-width) solid var(--black);
 }
 
 input:focus {
@@ -102,7 +103,7 @@ form .info-box {
   padding: var(--space-2xs);
 }
 
-.info-box li {
+.swap-form .info-box li {
   opacity: 0;
 }
 
@@ -133,9 +134,15 @@ form .info-box {
 }
 
 .pool-form fieldset:has(.dropdown) {
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--space-s);
+  justify-content: space-between;
 }
 
 .pool-form .actions {
-  justify-content: start;
+  justify-content: end;
+}
+
+.pool-form section.remove .actions button {
+  color: var(--black);
 }

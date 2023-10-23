@@ -16,6 +16,9 @@ import { usePools } from "../../hooks/usePools";
 import { useDeviation } from "../../hooks/useDeviation";
 import { useSwapQuote } from "../../hooks/useSwapQuote";
 
+//
+import gsap from "gsap";
+
 const availableTokens = [
   {
     id: 1,
@@ -52,6 +55,7 @@ const Swap = () => {
   const [amountToSwap, setAmountToSwap] = useState("");
   const [amountToReceive, setAmountToReceive] = useState("");
   const [swapType, setSwapType] = useState(SWAP_TYPE.FROM);
+  const [isSwitched, setIsSwitched] = useState(false);
 
   const path = useMemo(() => {
     return [tokenFrom.address, tokenTo.address];
@@ -121,7 +125,16 @@ const Swap = () => {
   const handleSwitch = (event: React.MouseEvent<HTMLButtonElement>) => {
     const _tokenFrom = tokenFrom;
     const amount0 = parsedAmount0;
-    setTokenFrom(tokenTo);
+  
+
+    gsap.to(event.target, {
+      duration: 0.5,
+      rotation: isSwitched ? 0 : 180,
+      ease: "elastic.inOut(1, 0.8)",
+    });
+
+	 setIsSwitched(!isSwitched);
+	 setTokenFrom(tokenTo);
     setAmountToSwap(parsedAmount1);
 
     setTokenTo(_tokenFrom);
@@ -165,7 +178,7 @@ const Swap = () => {
   };
 
   return (
-    <form>
+    <form className="swap-form">
       <FromFieldset
         handleTokenChange={handleTokenFromChange}
         handleAmountChange={handleAmountFromChange}

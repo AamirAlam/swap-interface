@@ -1,10 +1,10 @@
 export default function Tokens(props) {
   return (
     <section>
-      {/* <text-content>
+      <text-content>
         <h2 className="attention-voice">Tokens</h2>
         <p>Which token pair would you like to add liquidity to.</p>
-      </text-content> */}
+      </text-content>
       <fieldset>
         <form-field class="dropdown">
           <label className="whisper-voice" htmlFor="tokenFrom">
@@ -17,8 +17,10 @@ export default function Tokens(props) {
             onChange={props.handleToken0Change}
           >
             {props.availableTokens.map((token, index) => (
-              <option key={token.id} value={index} 
-              selected={token.symbol === props?.token0?.symbol}
+              <option
+                key={token.id}
+                value={index}
+                selected={token.symbol === props?.token0?.symbol}
               >
                 {token.symbol}
               </option>
@@ -37,9 +39,10 @@ export default function Tokens(props) {
             onChange={props.handleToken1Change}
           >
             {props.availableTokens.map((token, index) => (
-              <option 
-              key={token.id} value={index}
-              selected={token.symbol === props?.token1?.symbol}
+              <option
+                key={token.id}
+                value={index}
+                selected={token.symbol === props?.token1?.symbol}
               >
                 {token.symbol}
               </option>
