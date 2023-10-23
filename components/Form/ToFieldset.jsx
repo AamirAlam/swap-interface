@@ -2,6 +2,7 @@
 import React, { useRef } from "react";
 import { useEffect } from "react";
 import { gsap } from "gsap";
+import { formatCurrency } from "../../hooks/helpers";
 
 export default function ToFieldset(props) {
   // refs
@@ -46,7 +47,7 @@ export default function ToFieldset(props) {
 
       <form-field class="number">
         <label className="solid-voice" htmlFor="amountTo">
-          You Recieve
+          You Recieve: ${formatCurrency(props.token1USD)}
         </label>
 
         {/* keep this version aamir */}

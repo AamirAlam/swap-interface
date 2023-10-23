@@ -1,14 +1,12 @@
-//styling in style/form.css
+import { formatCurrency } from "../../hooks/helpers";
+
 
 export default function FromFieldset(props) {
-  // handlers
 
-  // token
   const handleTokenChange = (e) => {
     props.handleTokenChange(e);
   };
 
-  //amount
   const handleAmountChange = (e) => {
     props.handleAmountChange(e);
   };
@@ -37,7 +35,7 @@ export default function FromFieldset(props) {
 
       <form-field class="number">
         <label className="solid-voice" htmlFor="amountFrom">
-          You pay
+          You pay: ${formatCurrency(props.token0USD)}
         </label>
 
         <input

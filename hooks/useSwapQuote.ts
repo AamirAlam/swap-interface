@@ -33,13 +33,13 @@ export function useSwapQuote(
     watch: true,
   });
 
-  console.log("quote info ", {
-    quoteData,
-    token0Amount,
-    token1Amount,
-    token0,
-    token1,
-  });
+  // console.log("quote info ", {
+  //   quoteData,
+  //   token0Amount,
+  //   token1Amount,
+  //   token0,
+  //   token1,
+  // });
   const tradeQuote = useMemo(() => {
     if (
       quoteData?.[0]?.status === "failure" ||

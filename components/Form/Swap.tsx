@@ -11,6 +11,7 @@ import { usePools } from "../../hooks/usePools";
 import { useDeviation } from "../../hooks/useDeviation";
 import { useSwapQuote } from "../../hooks/useSwapQuote";
 import gsap from "gsap";
+import { useUSDValues } from "../../hooks/useUSDValues";
 
 const availableTokens = [
   {
@@ -146,6 +147,13 @@ const Swap = () => {
     [swapType, token1Quote, amountToReceive, tokenTo]
   );
 
+  const { token0USD, token1USD } = useUSDValues(
+    tokenFrom,
+    tokenTo,
+    parsedAmount0,
+    parsedAmount1
+  );
+
   const handleSwap = async () => {
     await swapTokens(
       tokenFrom,
@@ -167,6 +175,7 @@ const Swap = () => {
         handleAmountChange={handleAmountFromChange}
         amountFrom={parsedAmount0}
         tokenFrom={tokenFrom}
+        token0USD={token0USD}
         availableTokens={availableTokens}
       />
 
@@ -179,6 +188,7 @@ const Swap = () => {
         handleAmountChange={handleAmountToChange}
         amountTo={parsedAmount1}
         tokenTo={tokenTo}
+        token1USD={token1USD}
         availableTokens={availableTokens}
       />
 

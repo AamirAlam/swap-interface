@@ -87,13 +87,13 @@ export function usePools(token0: Token, token1: Token) {
     return balMap;
   }, [data, token0Balance, token1Balance]);
 
-  console.log("pair address ", {
-    pairAddress,
-    data,
-    lpBalance: data?.[0]?.result?.toString(),
-    balances,
-    reserves: data?.[1]?.result?.[0]?.toString(),
-  });
+  // console.log("pair address ", {
+  //   pairAddress,
+  //   data,
+  //   lpBalance: data?.[0]?.result?.toString(),
+  //   balances,
+  //   reserves: data?.[1]?.result?.[0]?.toString(),
+  // });
 
   const getToken1Out = (token0In) => {
     // todo:

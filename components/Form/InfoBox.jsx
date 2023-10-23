@@ -2,6 +2,7 @@
 import React, { useRef } from "react";
 import { useEffect } from "react";
 import { gsap } from "gsap";
+import BigNumber from "bignumber.js";
 
 export default function InfoBox(props) {
   const oraclePriceRef = useRef(null);
@@ -73,7 +74,7 @@ export default function InfoBox(props) {
         Pool price: <span ref={dexPriceRef}>{props.dexPrice}</span>
       </li>
       <li className="solid-voice">
-        Deviation: {props.oraclePrice > props.dexPrice ? "-" : "+"}{" "}
+        Deviation: {new BigNumber(props.oraclePrice).gt(props.dexPrice) ? "-" : "+"}{" "}
         <span ref={deviationRef}>{props.deviation}</span>
         <span>%</span>
       </li>

@@ -25,8 +25,6 @@ export function useApproveCallbacks(token: Token) {
     watch: true,
   });
 
-  console.log("allowance info ", allowance);
-
   const params = [ROUTER_ADDRESS, toWei(999999999999)];
   const {
     writeAsync,
