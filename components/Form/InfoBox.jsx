@@ -3,6 +3,7 @@ import React, { useRef } from "react";
 import { useEffect } from "react";
 import { gsap } from "gsap";
 import BigNumber from "bignumber.js";
+import { formatCurrency } from "../../hooks/helpers";
 
 export default function InfoBox(props) {
   const oraclePriceRef = useRef(null);
@@ -68,10 +69,10 @@ export default function InfoBox(props) {
   return (
     <ul className="info-box" ref={InfoBoxRef}>
       <li className="solid-voice">
-        Oracle price: <span ref={oraclePriceRef}>{props.oraclePrice}</span>
+        Oracle price: <span ref={oraclePriceRef}>{formatCurrency(  props.oraclePrice?.[0],  new BigNumber(props.oraclePrice?.[0]).lt(1) ? 5 : 2 )}</span>
       </li>
       <li className="solid-voice">
-        Pool price: <span ref={dexPriceRef}>{props.dexPrice}</span>
+        Pool price: <span ref={dexPriceRef}>{formatCurrency(props.dexPrice, new BigNumber(props.dexPrice).lt(1) ? 5 : 2  )}</span>
       </li>
       <li className="solid-voice">
         Deviation: {new BigNumber(props.oraclePrice).gt(props.dexPrice) ? "-" : "+"}{" "}

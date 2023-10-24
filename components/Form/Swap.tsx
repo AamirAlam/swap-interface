@@ -12,6 +12,8 @@ import { useDeviation } from "../../hooks/useDeviation";
 import { useSwapQuote } from "../../hooks/useSwapQuote";
 import gsap from "gsap";
 import { useUSDValues } from "../../hooks/useUSDValues";
+import { useAccount } from "wagmi";
+import Wallet from "../Wallet";
 
 const availableTokens = [
   {
@@ -50,6 +52,8 @@ const Swap = () => {
   const [amountToReceive, setAmountToReceive] = useState("");
   const [swapType, setSwapType] = useState(SWAP_TYPE.FROM);
   const [isSwitched, setIsSwitched] = useState(false);
+
+  const { isConnected } = useAccount();
 
   const path = useMemo(() => {
     return [tokenFrom.address, tokenTo.address];
@@ -192,31 +196,35 @@ const Swap = () => {
         availableTokens={availableTokens}
       />
 
-      <div className="actions">
-        {tokenFrom.symbol !== "ETH" &&
-        allowance &&
-        new BigNumber(allowance).lt(
-          toWei(parsedAmount0, tokenFrom.decimals)
-        ) ? (
-          <button
-            type="button"
-            className="button firm-voice"
-            disabled={approveLoading}
-            onClick={handleApprove}
-          >
-            {approveLoading ? "Approving..." : "Approve swap"}
-          </button>
-        ) : (
-          <button
-            type="button"
-            className="button firm-voice"
-            disabled={loading}
-            onClick={handleSwap}
-          >
-            {loading ? "Swapping..." : "Swap"}
-          </button>
-        )}
-      </div>
+      {isConnected ? (
+        <div className="actions">
+          {tokenFrom.symbol !== "ETH" &&
+          allowance &&
+          new BigNumber(allowance).lt(
+            toWei(parsedAmount0, tokenFrom.decimals)
+          ) ? (
+            <button
+              type="button"
+              className="button firm-voice"
+              disabled={approveLoading}
+              onClick={handleApprove}
+            >
+              {approveLoading ? "Approving..." : "Approve swap"}
+            </button>
+          ) : (
+            <button
+              type="button"
+              className="button firm-voice"
+              disabled={loading}
+              onClick={handleSwap}
+            >
+              {loading ? "Swapping..." : "Swap"}
+            </button>
+          )}
+        </div>
+      ) : (
+        <Wallet />
+      )}
 
       <InfoBox
         oraclePrice={oraclePrice}

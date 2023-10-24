@@ -9,7 +9,7 @@ export default function Deposit(props) {
       <fieldset>
         <form-field class="number">
           <label className="solid-voice" htmlFor="amountFrom">
-            Amount Token 1
+            Deposit {props.token0.symbol}
           </label>
 
           <input
@@ -24,7 +24,7 @@ export default function Deposit(props) {
 
         <form-field class="number">
           <label className="solid-voice" htmlFor="amountTo">
-            Amount Token 2
+             Deposit {props.token1.symbol} 
           </label>
 
           <input
