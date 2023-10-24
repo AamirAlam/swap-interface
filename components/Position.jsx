@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { formatCurrency, fromWei } from "../hooks/helpers";
 import { usePools } from "../hooks/usePools";
+import BigNumber from "bignumber.js";
 
 export default function Position({ token0, token1, handleRemove }) {
   const { balances, lpBalance, pairAddress, pairDecimals } = usePools(
@@ -26,17 +27,17 @@ export default function Position({ token0, token1, handleRemove }) {
       <ul className="info-box">
         <li className="solid-voice">
           LP Balance:{" "}
-          <span>{formatCurrency(fromWei(lpBalance, pairDecimals), 4)}</span>
+          <span>{formatCurrency(fromWei(lpBalance, pairDecimals))}</span>
         </li>
 
         <li className="solid-voice">
           {token0.symbol} Balance:{" "}
-          <span>{formatCurrency(token0Balance, 4)}</span>
+          <span>{formatCurrency(token0Balance,  new BigNumber(token0Balance).lt(1) ?  5 : 2)}</span>
         </li>
 
         <li className="solid-voice">
           {token1.symbol} Balance:{" "}
-          <span>{formatCurrency(token1Balance, 4)}</span>
+          <span>{formatCurrency(token1Balance,  new BigNumber(token1Balance).lt(1) ? 5 : 2)}</span>
         </li>
       </ul>
     </section>

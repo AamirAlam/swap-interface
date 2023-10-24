@@ -242,6 +242,8 @@ export default function PoolForm(props) {
 
       {!showRemove && (
         <Deposit
+          token0={token0}
+          token1={token1}
           token0Amount={parsedAmount0}
           token1Amount={parsedAmount1}
           handleAmount0Change={handleAmount0Change}

@@ -2,10 +2,16 @@
 import { useContractReads } from "wagmi";
 
 import { useMemo } from "react";
-import { ROUTER_ADDRESS, SWAP_TYPE, Token } from "./constants";
+import {
+  ROUTER_ADDRESS,
+  SWAP_TYPE,
+  Token,
+  API3_PROXY_READER,
+} from "./constants";
 import ROUTER_ABI from "./abis/router.json";
 import { fromWei } from "./helpers";
 import BigNumber from "bignumber.js";
+import API3_PROXY_ABI from "./abis/proxy.json";
 
 export function useDeviation(
   token0: Token,
@@ -29,17 +35,24 @@ export function useDeviation(
         args: [tokenInput, path],
         chainId: 5,
       },
+      {
+        address: API3_PROXY_READER,
+        abi: API3_PROXY_ABI,
+        functionName: "readDataFeed",
+        args: [token0.address],
+        chainId: 5,
+      },
+      {
+        address: API3_PROXY_READER,
+        abi: API3_PROXY_ABI,
+        functionName: "readDataFeed",
+        args: [token1.address],
+        chainId: 5,
+      },
     ],
     watch: true,
   });
 
-  // console.log("quote info ", {
-  //   quoteData,
-  //   token0Amount,
-  //   token1Amount,
-  //   token0,
-  //   token1,
-  // });
   const tradeQuote = useMemo(() => {
     if (
       quoteData?.[0]?.status === "failure" ||
@@ -53,15 +66,20 @@ export function useDeviation(
       };
     }
     return {
-      oraclePrice: new BigNumber(quoteData?.[0]?.result?.[1]?.toString())
-        .div(10 ** 8)
-        ?.toFixed(4),
+      oraclePrice: [
+        new BigNumber(quoteData?.[1]?.result?.[0]?.toString())
+          .div(new BigNumber(quoteData?.[2]?.result?.[0]?.toString()))
+          .toString(),
+        new BigNumber(quoteData?.[2]?.result?.[0]?.toString())
+          .div(new BigNumber(quoteData?.[1]?.result?.[0]?.toString()))
+          .toString(),
+      ],
       deviation: quoteData?.[0]?.result?.[0]?.toString(),
       dexPrice: new BigNumber(
         new BigNumber(quoteData?.[0]?.result?.[2]?.toString()).div(10 ** 8)
       )
         .div(fromWei(token0Amount, token0.decimals))
-        .toFixed(4),
+        .toString(),
     };
   }, [quoteData, token0Amount, token0]);
 
