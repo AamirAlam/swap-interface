@@ -35,7 +35,8 @@ form-field {
 }
 
 form-field.dropdown {
-  display: flex;
+  display: grid;
+  grid-template-columns: 0.2fr 1fr;
   gap: var(--space-s);
   justify-items: start;
   align-items: center;
@@ -73,11 +74,19 @@ label {
   color: var(--black);
 }
 
-select {
-  padding: var(--space-3xs);
+.react-select {
   border: none;
   background: var(--color-lighter);
   border-radius: var(--corners);
+}
+
+.react-select-icon {
+  max-width: 20px;
+  margin-left: var(--space-2xs);
+}
+
+.react-select div.actions {
+  justify-content: flex-start;
 }
 
 option {

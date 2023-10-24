@@ -65,6 +65,7 @@ a {
   color: var(--color);
   border: var(--line-width-thin) solid var(--color);
   padding: 0.5em 1em;
+  background: none;
 }
 
 .button.outline:is(:hover, :focus-visible) {
@@ -152,4 +153,8 @@ div.actions,
 /* / This part is for the thumb when it's being hovered over  */
 ::-webkit-scrollbar-thumb:hover {
   filter: brightness(1.2);
+}
+
+/*  */
+.outline .balance {
 }

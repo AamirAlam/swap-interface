@@ -1,5 +1,7 @@
 import { formatCurrency } from "../../hooks/helpers";
 
+//styling in style/form.css
+import Dropdown from "../Dropdown";
 
 export default function FromFieldset(props) {
 
@@ -17,20 +19,10 @@ export default function FromFieldset(props) {
         <label className="whisper-voice" htmlFor="tokenFrom">
           From
         </label>
-        <select name="swap-from" id="tokenFrom" onChange={handleTokenChange}>
-          {props.availableTokens.map((token, index) => (
-            <option
-              selected={token.symbol === props?.tokenFrom?.symbol}
-              key={token.symbol}
-              value={index}
-            >
-              {/* <picture>
-                <img src={token.icon} alt={token.name} />
-              </picture> */}
-              {token.symbol}
-            </option>
-          ))}
-        </select>
+        <Dropdown
+          options={props.availableTokens}
+          handleTokenChange={props.handleTokenChange}
+        />
       </form-field>
 
       <form-field class="number">

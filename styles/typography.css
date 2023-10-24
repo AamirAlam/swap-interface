@@ -89,6 +89,10 @@ label {
   line-height: var(--line-height);
 }
 
+.react-select .calm-voice {
+  color: var(--black);
+}
+
 em {
   font-style: italic;
 }

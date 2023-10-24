@@ -86,7 +86,7 @@ export default function ConnectButton() {
                   </button>
 
                   <button
-                    className="button gradient-text"
+                    className="button  outline"
                     onClick={openAccountModal}
                     type="button"
                   >
