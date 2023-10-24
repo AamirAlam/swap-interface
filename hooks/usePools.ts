@@ -57,6 +57,9 @@ export function usePools(token0: Token, token1: Token) {
   });
 
   const token0Balance = useMemo(() => {
+    if (!data?.[0]?.result) {
+      return "0";
+    }
     const lpBalance = data?.[0]?.result?.toString();
     const reserve0 = data?.[1]?.result?.[0]?.toString();
     const totalSupply = data?.[2]?.result?.toString();
@@ -69,6 +72,10 @@ export function usePools(token0: Token, token1: Token) {
   }, [data]);
 
   const token1Balance = useMemo(() => {
+    if (!data?.[0]?.result) {
+      return "0";
+    }
+
     const lpBalance = data?.[0]?.result?.toString();
     const reserve1 = data?.[1]?.result?.[1]?.toString();
     const totalSupply = data?.[2]?.result?.toString();

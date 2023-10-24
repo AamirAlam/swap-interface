@@ -9,6 +9,8 @@ import { usePools } from "../../hooks/usePools";
 import Position from "../Position";
 import BigNumber from "bignumber.js";
 import { useLiquidityCallbacks } from "../../hooks/useLiquidityCallbacks";
+import { useAccount } from "wagmi";
+import Wallet from '../Wallet'
 
 const availableTokens = [
   {
@@ -49,6 +51,8 @@ export default function PoolForm(props) {
   const [lpAmount, setLpAmount] = useState("");
 
   const [swapType, setSwapType] = useState(SWAP_TYPE.FROM);
+
+  const { isConnected } = useAccount();
 
   const resetTokenInputs = () => {
     setToken0Amount("");
@@ -254,7 +258,7 @@ export default function PoolForm(props) {
 
       <Position token0={token0} token1={token1} />
 
-      <div className="actions">
+        {isConnected ?   <div className="actions">
         <button
           onClick={handleRemoveLiquidityButton}
           className="button calm-voice outline"
@@ -269,7 +273,7 @@ export default function PoolForm(props) {
         >
           {buttonText}
         </button>
-      </div>
+      </div> : <Wallet /> }
     </form>
   );
 }
