@@ -21,7 +21,7 @@ const Option = ({ children, ...props }) => (
   <components.Option {...props}>
     <div className="actions">
       <picture className="react-select-icon">
-        <img src={`/images/${props.data.icon}`} />
+        <img src={`/images/${props.data.icon}`} alt="icon" />
       </picture>
       {children}
     </div>
@@ -34,6 +34,8 @@ export default function Dropdown(props) {
     value: index,
     ...token,
   }));
+
+  const selected = options.find((el) =>  el.label === props.selected?.symbol) 
 
   const theme = (theme) => ({
     ...theme,
@@ -66,7 +68,7 @@ export default function Dropdown(props) {
       isSearchable={false}
       theme={theme}
       onChange={handleOnChange}
-      defaultValue={options[0]}
+      defaultValue={selected }
       components={{ Control, Option }}
     />
   );

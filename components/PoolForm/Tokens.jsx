@@ -13,6 +13,7 @@ export default function Tokens(props) {
             Token 1
           </label>
           <Dropdown
+            selected={props.token0}
             options={props.availableTokens}
             handleTokenChange={props.handleToken0Change}
           />
@@ -24,6 +25,7 @@ export default function Tokens(props) {
           </label>
 
           <Dropdown
+            selected={props.token1}
             options={props.availableTokens}
             handleTokenChange={props.handleToken1Change}
           />

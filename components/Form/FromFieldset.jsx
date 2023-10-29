@@ -20,6 +20,7 @@ export default function FromFieldset(props) {
           From
         </label>
         <Dropdown
+          selected={props.tokenFrom}
           options={props.availableTokens}
           handleTokenChange={props.handleTokenChange}
         />

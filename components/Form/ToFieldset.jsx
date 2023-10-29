@@ -34,6 +34,7 @@ export default function ToFieldset(props) {
           To
         </label>
         <Dropdown
+          selected={props.tokenTo}
           options={props.availableTokens}
           handleTokenChange={props.handleTokenChange}
         />
