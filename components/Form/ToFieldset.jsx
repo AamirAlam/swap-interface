@@ -3,6 +3,7 @@ import React, { useRef } from "react";
 import { useEffect } from "react";
 import { gsap } from "gsap";
 import { formatCurrency } from "../../hooks/helpers";
+import Dropdown from "../Dropdown";
 
 export default function ToFieldset(props) {
   // refs
@@ -32,17 +33,11 @@ export default function ToFieldset(props) {
         <label className="whisper-voice" htmlFor="tokenTo">
           To
         </label>
-        <select name="swap-to" id="tokenTo" onChange={handleTokenChange}>
-          {props.availableTokens.map((token, index) => (
-            <option
-              selected={token.symbol === props?.tokenTo?.symbol}
-              key={token.symbol}
-              value={index}
-            >
-              {token.symbol}
-            </option>
-          ))}
-        </select>
+        <Dropdown
+          selected={props.tokenTo}
+          options={props.availableTokens}
+          handleTokenChange={props.handleTokenChange}
+        />
       </form-field>
 
       <form-field class="number">
