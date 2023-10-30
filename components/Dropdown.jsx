@@ -61,8 +61,20 @@ export default function Dropdown(props) {
     props.handleTokenChange(event);
   };
 
+  const customStyles = {
+    option: (provided, state) => ({
+      ...provided,
+      color: state.isSelected ? 'white' : 'black', 
+      backgroundColor: state.isSelected ? 'blue' : 'white',
+      '&:hover': {
+        backgroundColor: 'lightgray',
+      },
+    }),
+  };
+
   return (
     <Select
+      styles={customStyles}
       options={options}
       className={"calm-voice react-select"}
       isSearchable={false}
